@@ -1,53 +1,82 @@
-import sha1 from 'sha1';
-import { ObjectId } from 'mongodb';
+import bcrypt from 'bcrypt';
+import { v4 } from 'uuid';
 
 import dbClient from '../utils/db';
 import userUtils from '../utils/user';
+import redisClient from '../utils/redis';
 
 class UserController {
   static async postRegister(req, res) {
-    const {
-      firstName, lastName, email, password, confirmPwd,
-    } = req.body;
+    const { firstName, lastName, email, password, confirmPwd } = req.body;
 
-    // Switch case for item confirmation and validati
-    if (!firstName) return res.render('register', { error: 'Missing first name' });
-    if (!lastName) return res.render('register', { error: 'Missing last name' });
-    if (!email) return res.render('register', { error: 'Missing email' });
-    if (!password) return res.render('register', { error: 'Missing password' });
-    if (!confirmPwd || confirmPwd !== password) return res.render('register', { error: 'Confirm password' });
-    if (await userUtils.getUser({ email }, { projection: { password: false } })) {
-      return res.render('register', { error: 'Email already exists' });
-    }
-    // Proceed with registration if all validations pass
-    const hashPwd = sha1(password);
+    if (!firstName) return res.status(400).send({ error: 'Missing first name' });
+    if (!lastName) return res.status(400).send({ error: 'Missing last name' });
+    if (!email || !password) return res.status(400).send({ error: 'Missing required fields: email and password' });
+    if (!confirmPwd || confirmPwd !== password) return res.status(400).send({ error: 'Passwords do not match' });
 
+    const existingUser = await userUtils.getUser({ email });
+    if (existingUser) return res.status(400).send({ error: 'Email already exists' });
+
+    const saltRounds = 10;
     try {
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
       await dbClient.userCollection.insertOne({
-        firstName, lastName, email, password: hashPwd,
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
       });
-      return res.render('login', { msg: 'You are registered! You can now login.' });
-    } catch (err) {
-      return res.status(500).send({ error: 'Server Error' });
+
+      
+    } catch (error) {
+      return res.status(500).send({ error: 'Internal server error' });
     }
   }
 
   static async postLogin(req, res) {
     const { email, password } = req.body;
-    if (!email) return res.render('login', { error: 'Missing email' });
-    if (!password) return res.render('login', { error: 'Missing password' });
-
-    // The passowrd encryption to verification
-
+    const token = req.header('X-Token');
+    if (!email || !password) {
+      return res.status(400).send({ error: 'Missing required fields: email and password' });
+    }
+  
     try {
       const user = await userUtils.getUser({ email });
-      if (!user) return res.render('login', { error: 'Email does not exist' });
-      if (sha1(password) !== user.password) return res.render('login', { error: 'Email or password incorrect' });
+      if (!user) {
+        return res.status(401).send({ error: 'Invalid email or password' });
+      }
 
-      return res.render('index', { msg: 'You are logged in!' });
+      const isValidPassword = await bcrypt.compare(password, user.password);
+      if (!isValidPassword) {
+        return res.status(401).send({ error: 'Invalid email or password' });
+      }
+
+      delete user.password;
+
+      let generatedToken;
+      if (!token) {
+        generatedToken = await this.setToken(user._id);
+      } else {
+        // Validate existing token (optional security step)
+        // ... your token validation logic here ...
+      }
+
+      return res.status(200).send({ token: generatedToken || token, redirectUrl: '/' });
     } catch (error) {
-      return res.status(500).send({ error: 'Server Error' });
+      console.error('Login error:', error);
+      return res.status(500).send({ error: 'Internal server error' });
     }
+  }
+
+  static async setToken(userId) {
+    const token = v4();
+    const key =  `auth_${token}`;
+    const expirationHour = 24;
+
+    await redisClient.set(key, userId.toString(), expirationHour * 3600);
+
+    return token;
   }
 }
 
