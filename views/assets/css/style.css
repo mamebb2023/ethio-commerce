@@ -1,2 +1,85 @@
 @charset "UTF-8";
+/* @import url('https://fonts.googleapis.com/css2?family=Anta&display=swap'); */
 
+:root {
+    --brown: hsl(20, 100%, 15%);
+    --light-brown: hsl(41, 100%, 90%);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Anta", sans-serif;
+    font-style: normal;
+    text-decoration: none;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+header {
+    padding: 0 30px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a.logo {
+    width: 90px;
+    height: 35px;
+    background-color: transparent;
+    background: url(../img/logo.png) no-repeat center center;
+    background-size: contain;
+}
+
+header nav a {
+    position: relative;
+    padding: 5px 10px;
+    color: var(--brown);
+}
+
+header nav a::before {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 7px;
+    width: 0;
+    height: 3px;
+    border-radius: 20px;
+    background: var(--brown);
+    transition: .3s ease;
+}
+
+header nav a:hover:before,
+header nav a.active:before {
+    text-decoration: underline;
+    width: 80%;
+}
+
+header nav a.login::before {
+    display: none;
+}
+
+header nav a.login {
+    padding: 10px 20px;
+    background: var(--brown);
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: .3s ease;
+}
+
+header nav a.login:hover {
+    text-decoration: none;
+    background: #fff;
+    color: var(--brown);
+    border: 1px solid var(--brown);
+}
+
+.content {
+    min-height: 600px;
+    background: var(--light-brown);
+}

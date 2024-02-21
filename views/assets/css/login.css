@@ -1,0 +1,106 @@
+@charset "UTF-8";
+@import url('style.css');
+
+.content .box {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content .box .form-box {
+    z-index: 10;
+    padding: 20px;
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    background: #ffffffdd;
+}
+
+.content .box .form-box form {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content .box .form-box h1 {
+    position: relative;
+    width: 90%;
+    height: 50px;
+}
+
+.content .box .form-box h1:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    height: 5px;
+    border-radius: 10px;
+    background: var(--brown);
+}
+
+.content .box .form-box p.alert {
+    margin: 10px 0;
+}
+
+.content .box .form-box p.alert.error {
+    color: red;
+}
+
+.content .box .form-box p.alert.msg {
+    color: green;
+}
+
+
+.content .box .form-box form input {
+    width: 90%;
+    height: 40px;
+    padding: 3px 20px;
+    margin: 10px 0;
+    border: 1px solid var(--brown);
+    border-radius: 25px;
+    color: var(--brown);
+}
+
+.content .box .form-box form .name {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content .box .form-box form .name input {
+    width: 48%;
+}
+
+
+.content .box .form-box form button {
+    padding: 10px 40px;
+    margin: 10px 0;
+    background: var(--brown);
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    transition: .3s ease;
+}
+
+.content .box .form-box form button:hover {
+    text-decoration: none;
+    background: #fff;
+    color: var(--brown);
+    border: 1px solid var(--brown);
+}
+
+.content .box .form-box a {
+    margin-left: 5px;
+    text-decoration: underline;
+    color: var(--brown);
+}
