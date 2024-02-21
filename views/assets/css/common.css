@@ -1,0 +1,70 @@
+@charset "UTF-8";
+/* @import url('https://fonts.googleapis.com/css2?family=Anta&display=swap'); */
+
+:root {
+    --root-color: hsl(20, 100%, 15%);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Anta", sans-serif;
+    font-style: normal;
+    text-decoration: none;
+}
+
+header {
+    padding: 0 30px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    text-shadow: var(--root-color) 5px 5px 20px;
+}
+
+header nav a {
+    position: relative;
+    padding: 5px 10px;
+    color: var(--root-color);
+}
+
+header nav a::before {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 7px;
+    width: 0;
+    height: 3px;
+    border-radius: 10px;
+    background: var(--root-color);
+    transition: .3s ease;
+}
+
+header nav a:hover:before {
+    text-decoration: underline;
+    width: 80%;
+}
+
+header nav a.login::before {
+    display: none;
+}
+
+header nav a.login {
+    padding: 10px 20px;
+    background: var(--root-color);
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: .3s ease;
+}
+
+header nav a.login:hover {
+    text-decoration: none;
+    background: #fff;
+    color: var(--root-color);
+    border: 1px solid var(--root-color);
+}
