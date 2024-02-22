@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb';
+import bcrypt from 'bcrypt';
 
 import redisClient from './redis';
 import dbClient from './db';
@@ -26,6 +27,11 @@ class userUtils {
       return false;
     }
     return true;
+  }
+
+  static encryptPwd(password, salt) {
+    const hashedpwd =  bcrypt.hash(password, salt);
+    return hashedpwd;
   }
 }
 

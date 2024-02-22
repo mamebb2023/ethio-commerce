@@ -14,19 +14,21 @@
                 <div class="form-box">
                     <h1>Create Account</h1>
                     <p class="alert"></p>
-                    <form action="/register" method="POST">
+                    <form id="register-form" action="/register" method="POST">
                         <div class="name">
                             <input type="text" placeholder="First Name" name="firstName">
                             <input type="text" placeholder="Last Name" name="lastName">
                         </div>
-                        <input type="email" placeholder="Email" name="email">
-                        <input type="password" placeholder="Password" name="password">
-                        <input type="password" placeholder="Confirm Password" name="confirmPwd">
+                        <input type="email" id="email" name="email" placeholder="Email">
+                        <input type="password" id="password" name="password" placeholder="Password">
+                        <input type="password" id="confirmPwd" name="confirmPwd" placeholder="Confirm Password">
                         <button type="submit">Create Account</button>
                     </form>
                     <p>Already Have An Account?<a href="/login">Login</a></p>
                 </div>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="assets/js/login.js"></script>
     </body>
 </html>
