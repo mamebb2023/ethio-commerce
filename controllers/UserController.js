@@ -1,13 +1,13 @@
 import bcrypt from 'bcrypt';
-import { v4 } from 'uuid';
 
 import dbClient from '../utils/db';
 import userUtils from '../utils/user';
-import redisClient from '../utils/redis';
+import AuthController from './AuthController';
 
 class UserController {
   static async postRegister(req, res) {
     const { firstName, lastName, email, password, confirmPwd } = req.body;
+    const token = req.header('X-Token');
 
     if (!firstName) return res.status(400).send({ error: 'Missing first name' });
     if (!lastName) return res.status(400).send({ error: 'Missing last name' });
@@ -19,7 +19,7 @@ class UserController {
 
     const saltRounds = 10;
     try {
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const hashedPassword = await userUtils.encryptPwd(password, saltRounds);
 
       await dbClient.userCollection.insertOne({
         firstName,
@@ -28,7 +28,9 @@ class UserController {
         password: hashedPassword,
       });
 
-      
+      const newToken = await AuthController.createToken(email, token);
+
+      return res.status(200).send({ token: newToken, redirectUrl: '/' });
     } catch (error) {
       return res.status(500).send({ error: 'Internal server error' });
     }
@@ -54,29 +56,13 @@ class UserController {
 
       delete user.password;
 
-      let generatedToken;
-      if (!token) {
-        generatedToken = await this.setToken(user._id);
-      } else {
-        // Validate existing token (optional security step)
-        // ... your token validation logic here ...
-      }
+      const newToken = await AuthController.createToken(email, token);
 
-      return res.status(200).send({ token: generatedToken || token, redirectUrl: '/' });
+      return res.status(200).send({ token: newToken, redirectUrl: '/' });
     } catch (error) {
       console.error('Login error:', error);
       return res.status(500).send({ error: 'Internal server error' });
     }
-  }
-
-  static async setToken(userId) {
-    const token = v4();
-    const key =  `auth_${token}`;
-    const expirationHour = 24;
-
-    await redisClient.set(key, userId.toString(), expirationHour * 3600);
-
-    return token;
   }
 }
 
