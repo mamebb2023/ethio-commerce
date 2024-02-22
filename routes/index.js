@@ -3,6 +3,7 @@ import path from 'path';
 
 import AppController from '../controllers/AppController';
 import UserController from '../controllers/UserController';
+import AuthController from '../controllers/AuthController';
 
 const router = express.Router();
 
@@ -12,7 +13,6 @@ const routerController = (app) => {
 
   // Templates
   router.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../views/index.html')));
-  router.get('/about', (req, res) => res.sendFile(path.resolve(__dirname, '../views/about.html')));
   router.get('/register', (req, res) => res.sendFile(path.resolve(__dirname, '../views/register.html')));
   router.get('/login', (req, res) => res.sendFile(path.resolve(__dirname, '../views/login.html')));
 
@@ -23,6 +23,9 @@ const routerController = (app) => {
   // User Controller
   router.post('/login', (req, res) => UserController.postLogin(req, res));
   router.post('/register', (req, res) => UserController.postRegister(req, res));
+
+  // Auth Controller
+  router.post('/validate', (req, res) => AuthController.validateUser(req, res));
 };
 
 export default routerController;
