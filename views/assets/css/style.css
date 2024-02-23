@@ -85,6 +85,10 @@ header nav a.login:hover {
     border: 1px solid var(--brown);
 }
 
+header .user i {
+    font-size: 40px;
+}
+
 .content {
     min-height: 600px;
     background: var(--light-brown);

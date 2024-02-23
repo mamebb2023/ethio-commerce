@@ -1,52 +1,59 @@
+import './utils.js';
+
 $(document).ready(() => {
-    const makeRequest = async (options) => {
-        const token = localStorage.getItem('X-Token');
-        if (token) {
-            options.headers = {
-            ...options.headers,
-            'X-Token': `${token}`,
-            }
-        }
-    
-        try {
-            const response = await $.ajax(options);
-            return { response, token };
-        } catch (error) {
-            return error;
-        }
+  // Registration Form
+  $('#register-form').submit(async (e) => {
+    e.preventDefault();
+
+    // Sanitize user input with appropriate validation
+    const firstName = $('#firstName').val();
+    const lastName = $('#lastName').val();
+    const email = $('#email').val();
+    const password = $('#password').val();
+    const confirmPwd = $('#confirmPwd').val();
+
+    if (password !== confirmPwd) {
+      $('.alert').html('Passwords does not match');
+      return;
     }
-    // Registration Form
-    $('#register-form').submit(async (e) => {
-      e.preventDefault();
-    });
-  
-    // Login Form
-    $('#login-form').submit(async (e) => {
-      e.preventDefault();
-    
-      // Sanitize user input (replace with appropriate validation)
-      const email = $('#email').val();
-      const password = $('#password').val();
-    
-      try {
-        const { response, token } = await makeRequest({
-          url: '/login',
-          method: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify({ email, password }),
-        });
-        console.log(response)
-  
-        if (response.error) {
-          throw new Error(response.error);
-        }
-        if (token === null) {
-        localStorage.setItem('X-Token', response.token);
-        }
+
+    $.fn.sendRequest({
+      url: '/register',
+      method: 'POST',
+      data: { firstName, lastName, email, password },
+    }).done(response => {
+      $('.success').show().html(response.msg);
+      $('.alert').hide();
+      setTimeout(() => {
         window.location.href = response.redirectUrl;
-      } catch (err) {
-        $('.alert').text(err.responseJSON.error);
-      }
+      }, 3000);
+    }).fail(err => {
+      $('.alert').show().html(err.responseJSON.error);
     });
+  });
+
+  // Login Form
+  $('#login-form').submit(async (e) => {
+    e.preventDefault();
+
+    // Sanitize user input with appropriate validation
+    const email = $('#email').val();
+    const password = $('#password').val();
+
+    // Send request with Authorization header
+    $.fn.sendRequest({
+      url: '/login',
+      method: 'POST',
+      data: { email, password },
+    }).done(response => {
+      $('.alert').hide();
+      $('.success').show().html(response.msg);
+      console.log(token);
+      setTimeout(() => {
+        window.location.href = response.redirectUrl;
+      }, 3000);
+    }).fail(err => {
+      $('.alert').show().html(err.responseJSON.error);
+    });
+  });
 });
-  
