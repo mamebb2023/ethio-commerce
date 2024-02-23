@@ -1,67 +1,70 @@
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
+import sha1 from 'sha1';
 
 import dbClient from '../utils/db';
 import userUtils from '../utils/user';
-import AuthController from './AuthController';
 
 class UserController {
-  static async postRegister(req, res) {
-    const { firstName, lastName, email, password, confirmPwd } = req.body;
-    const token = req.header('X-Token');
+  static async userRegister(req, res) {
+    const {
+      firstName, lastName, email, password,
+    } = req.body;
+   
+    if (!firstName) return res.status(400).send({ error: 'First name required' });
+    if (!lastName) return res.status(400).send({ error: 'Last name required' });
+    if (!email) return res.status(400).send({ error: 'Email required' });
+    if (!password) return res.status(400).send({ error: 'Password required' });
 
-    if (!firstName) return res.status(400).send({ error: 'Missing first name' });
-    if (!lastName) return res.status(400).send({ error: 'Missing last name' });
-    if (!email || !password) return res.status(400).send({ error: 'Missing required fields: email and password' });
-    if (!confirmPwd || confirmPwd !== password) return res.status(400).send({ error: 'Passwords do not match' });
+    const user = await userUtils.getUser({ email }, { projection: { password: false } });
+    if (user) return res.status(400).send({ error: 'Email Already Exists' });
 
-    const existingUser = await userUtils.getUser({ email });
-    if (existingUser) return res.status(400).send({ error: 'Email already exists' });
+    // const salt = 10;
+    // const hashPassword = bcrypt.hash(password, 10);
+    const hashPassword = sha1(password);
 
-    const saltRounds = 10;
     try {
-      const hashedPassword = await userUtils.encryptPwd(password, saltRounds);
-
       await dbClient.userCollection.insertOne({
         firstName,
         lastName,
         email,
-        password: hashedPassword,
+        password: hashPassword
       });
-
-      const newToken = await AuthController.createToken(email, token);
-
-      return res.status(200).send({ token: newToken, redirectUrl: '/' });
-    } catch (error) {
-      return res.status(500).send({ error: 'Internal server error' });
+      return res.status(201).send({ msg: 'User Registered! You Can now login.', redirectUrl: '/login' });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({ error: 'Internal Server Error' });
     }
   }
 
-  static async postLogin(req, res) {
-    const { email, password } = req.body;
-    const token = req.header('X-Token');
-    if (!email || !password) {
-      return res.status(400).send({ error: 'Missing required fields: email and password' });
-    }
-  
+  static async userLogin(req, res) {
+    const {
+      email, password, redirectUrl
+    } = req.body;
+
+    if (!email) return res.status(400).send({ error: 'Email required' });
+    if (!password) return res.status(400).send({ error: 'Password required' });
+
+    const user = await userUtils.getUser({ email });
+    if (!user) return res.status(400).send({ error: 'Invalid email or password' });
+
     try {
-      const user = await userUtils.getUser({ email });
-      if (!user) {
-        return res.status(401).send({ error: 'Invalid email or password' });
+      // const isValid = bcrypt.compare(password, user.password);
+      const hashPassword = sha1(password);
+      if (hashPassword !== user.password) {
+        return res.status(400).send({ error: 'Invalid email or password' });
       }
-
-      const isValidPassword = await bcrypt.compare(password, user.password);
-      if (!isValidPassword) {
-        return res.status(401).send({ error: 'Invalid email or password' });
-      }
-
       delete user.password;
 
-      const newToken = await AuthController.createToken(email, token);
-
-      return res.status(200).send({ token: newToken, redirectUrl: '/' });
+      // uncomment this and remove the token on return
+      const token = await userUtils.createToken(user._id.toString());
+      res.cookie('X-Token', token, {
+        // httpOnly: true,
+        // secure: true,
+        // sameSite: 'lax',
+      });
+      return res.status(200).send({ msg: 'You are logged in!', token, redirectUrl });
     } catch (error) {
-      console.error('Login error:', error);
-      return res.status(500).send({ error: 'Internal server error' });
+
     }
   }
 }
