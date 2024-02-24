@@ -6,6 +6,10 @@
     --light-brown: hsl(41, 100%, 90%);
 }
 
+body {
+    position: relative;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -80,16 +84,29 @@ header nav a.login {
 
 header nav a.login:hover {
     text-decoration: none;
-    background: #fff;
+    background: transparent;
     color: var(--brown);
     border: 1px solid var(--brown);
 }
 
-header .user i {
+header #userIcon i {
     font-size: 40px;
+    transition: .3s ease;
 }
 
-.content {
-    min-height: 600px;
+header #userIcon i:hover {
+    color: black;
+}
+
+header #userIcon a::before {
+    display: none;
+}
+
+.content section {
+    position: relative;
+}
+
+.content section {
+    min-height: 500px;
     background: var(--light-brown);
 }

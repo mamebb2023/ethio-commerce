@@ -53,11 +53,11 @@
     margin: 13px 0 0 0;
 }
 
-.content .box .form-box p.alert {
+.content .box .form-box p#alert {
     color: red;
 }
 
-.content .box .form-box p.success {
+.content .box .form-box p#success {
     color: green;
 }
 

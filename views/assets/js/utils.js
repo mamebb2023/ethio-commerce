@@ -2,6 +2,11 @@
   $.fn.sendRequest = function (options) {
     const { url, method = 'GET', data = {}, headers = {} } = options;
 
+    // For every request, get the current url as
+    const fullUrl = window.location.href;
+    const parsedUrl = new URL(fullUrl);
+    const newUrl = url || parsedUrl.pathname + parsedUrl.search;
+
     // Get token from cookies and redirectUrl from localStorage, handling potential errors
     const token = document.cookie
       ?.split('; ')
@@ -18,10 +23,10 @@
     }
 
     return $.ajax({
-      url,
+      url: newUrl,
       method,
       data: mergedData,
-      beforeSend: function (xhr) {
+      beforeSend: (xhr) => {
         for (const [key, value] of Object.entries(headers)) {
           xhr.setRequestHeader(key, value);
         }

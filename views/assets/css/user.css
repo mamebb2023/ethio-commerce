@@ -1,0 +1,58 @@
+@charset "UTF-8";
+@import url('style.css');
+
+#userNotif #userNotifText {
+    color: darkgreen;
+    z-index: 10;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 250px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background: #eee;
+    animation: fadeIn 2s;
+    border: 3px solid darkgreen;
+}
+
+@keyframes fadeIn {
+    0% { transform: translate(270px, 0); border: 1px solid transparent; }
+    30% { transform: translate(0); }
+    100% { border: 3px solid darkgreen;}
+}
+
+.user {
+    display: flex;
+    justify-content: center;
+}
+
+.user-info {
+    margin-top: 20px;
+}
+
+.user-info h1 {
+    margin-bottom: 10px;
+}
+
+.user-info p {
+    margin-bottom: 10px;
+}
+
+.user-info button {
+    padding: 10px 20px;
+    background: var(--brown);
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: .3s ease;
+}
+
+.user-info button:hover {
+    text-decoration: none;
+    background: transparent;
+    color: var(--brown);
+    border: 1px solid var(--brown);
+}

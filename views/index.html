@@ -16,14 +16,16 @@
                 <a href="/products">Products</a>
                 <a href="/news">News</a>
                 <a href="/about">About</a>
-                <div class="user-actions">
+                <div id="user-actions" hidden>
                     <a class="login" href="/login">Login</a>
                     <a class="login" href="/register">Register</a>
                 </div>
-                <div class="user"><a href="/user/me"><i class='bx bx-user-circle'></i></a></div>
+                <div id="userIcon" hidden><a href="/user/me"><i class='bx bx-user-circle'></i></a></div>
             </nav>
         </header>
-        <p id="status"></p>
+        <div class="content">
+            <p id="status"></p>
+        </div>
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script type="module" src="assets/js/script.js"></script>
     </body>

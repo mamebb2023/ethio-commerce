@@ -13,22 +13,24 @@ $(document).ready(() => {
     const confirmPwd = $('#confirmPwd').val();
 
     if (password !== confirmPwd) {
-      $('.alert').html('Passwords does not match');
+      $('#alert').html('Passwords does not match');
       return;
     }
 
     $.fn.sendRequest({
       url: '/register',
       method: 'POST',
-      data: { firstName, lastName, email, password },
-    }).done(response => {
-      $('.success').show().html(response.msg);
-      $('.alert').hide();
+      data: {
+        firstName, lastName, email, password,
+      },
+    }).done((response) => {
+      $('#success').show().html(response.msg);
+      $('#alert').hide();
       setTimeout(() => {
         window.location.href = response.redirectUrl;
-      }, 3000);
-    }).fail(err => {
-      $('.alert').show().html(err.responseJSON.error);
+      }, 2000);
+    }).fail((err) => {
+      $('#alert').show().html(err.responseJSON.error);
     });
   });
 
@@ -45,15 +47,15 @@ $(document).ready(() => {
       url: '/login',
       method: 'POST',
       data: { email, password },
-    }).done(response => {
-      $('.alert').hide();
-      $('.success').show().html(response.msg);
-      console.log(token);
+    }).done((response) => {
+      $('#alert').hide();
+      $('#success').show().html(response.msg);
+      console.log(response.token);
       setTimeout(() => {
         window.location.href = response.redirectUrl;
-      }, 3000);
-    }).fail(err => {
-      $('.alert').show().html(err.responseJSON.error);
+      }, 2000);
+    }).fail((err) => {
+      $('#alert').show().html(err.responseJSON.error);
     });
   });
 });
