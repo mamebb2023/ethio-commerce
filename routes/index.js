@@ -17,7 +17,9 @@ const routerController = (app) => {
   router.get('/register', (req, res) => res.sendFile(path.resolve(__dirname, '../views/register.html')));
   router.get('/login', (req, res) => res.sendFile(path.resolve(__dirname, '../views/login.html')));
 
-  router.get('/user/me', (req, res) => res.sendFile(path.resolve(__dirname, '../views/user_panel.html')));
+  router.get('/user/me', AuthController.verifyUser, (req, res) => { 
+    res.sendFile(path.resolve(__dirname, '../views/user_panel.html'));
+  });
 
   // App Controller
   router.get('/status', (req, res) => AppController.getStatus(req, res));
@@ -26,6 +28,10 @@ const routerController = (app) => {
   // User Controller
   router.post('/login', (req, res) => UserController.userLogin(req, res));
   router.post('/register', (req, res) => UserController.userRegister(req, res));
+  router.post('/logout', AuthController.verifyUser, (req, res) => UserController.userLogout(req, res));
+
+  // Auth Controller
+  router.post('/verifyUser', AuthController.verifyUser, (req, res) => UserController.getUser(req, res));
 };
 
 export default routerController;
