@@ -3,12 +3,14 @@ import sha1 from 'sha1';
 
 import dbClient from '../utils/db';
 import userUtils from '../utils/user';
+import redisClient from '../utils/redis';
 
 class UserController {
   static async userRegister(req, res) {
     const {
       firstName, lastName, email, password,
     } = req.body;
+    
    
     if (!firstName) return res.status(400).send({ error: 'First name required' });
     if (!lastName) return res.status(400).send({ error: 'Last name required' });
@@ -19,7 +21,7 @@ class UserController {
     if (user) return res.status(400).send({ error: 'Email Already Exists' });
 
     // const salt = 10;
-    // const hashPassword = bcrypt.hash(password, 10);
+    // const hashPassword = bcrypt.hash(password, salt);
     const hashPassword = sha1(password);
 
     try {
@@ -55,7 +57,7 @@ class UserController {
       }
       delete user.password;
 
-      // uncomment this and remove the token on return
+      // uncomment below and remove the token on return
       const token = await userUtils.createToken(user._id.toString());
       res.cookie('X-Token', token, {
         // httpOnly: true,
@@ -64,7 +66,31 @@ class UserController {
       });
       return res.status(200).send({ msg: 'You are logged in!', token, redirectUrl });
     } catch (error) {
+      console.log(err);
+      return res.status(500).send({ error: 'Internal Server Error' });
+    }
+  }
 
+  static getUser(req, res) {
+    console.log
+      const user = {
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        email: req.user.email,
+      }
+      return res.status(201).send(user);
+      console.log('AuthCont', req.user);
+  }
+
+  static async userLogout(req, res) {
+    const key = req.key;
+
+    try{
+      await redisClient.del(key);
+      res.clearCookie('X-Token');
+      return res.status(201).send({ redirectUrl: '/' });
+    } catch (error) {
+      return res.status(500).send({ error: 'Internal Server Error' })
     }
   }
 }
