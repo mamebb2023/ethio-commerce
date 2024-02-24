@@ -11,7 +11,7 @@ class userUtils {
     const key =  `auth_${token}`;
     const expirationHour = 24;
 
-    await redisClient.set(key, userId.toString(), expirationHour);
+    await redisClient.set(key, userId.toString(), expirationHour * 3600);
 
     return token;
   }
