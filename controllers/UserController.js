@@ -72,22 +72,27 @@ class UserController {
   }
 
   static getUser(req, res) {
-    console.log
-      const user = {
-        firstName: req.user.firstName,
-        lastName: req.user.lastName,
-        email: req.user.email,
-      }
-      return res.status(201).send(user);
-      console.log('AuthCont', req.user);
+    if (!req.user) return res.status(400).send({ error: 'Unauthorized' });
+    const user = {
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      email: req.user.email,
+    }
+    console.log('getUser', req.user);
+    delete req.user;
+    delete req.key;
+    return res.status(201).send(user);
   }
 
   static async userLogout(req, res) {
     const key = req.key;
+    if (!key) return res.status(400).send({ error: 'Unauthorized' });
 
     try{
       await redisClient.del(key);
       res.clearCookie('X-Token');
+      delete req.key;
+      delete req.user;
       return res.status(201).send({ redirectUrl: '/' });
     } catch (error) {
       return res.status(500).send({ error: 'Internal Server Error' })
