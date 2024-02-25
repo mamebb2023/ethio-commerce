@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import url('style.css');
 
-.content .home-link {
+.contents .home-link {
     z-index: 9;
     position: absolute;
     bottom: 25px;
@@ -19,13 +19,13 @@
     transition: .5s ease;
 }
 
-.content .home-link:hover {
+.contents .home-link:hover {
     color: var(--brown);
     border: 2px solid var(--brown);
     background: transparent;
 }
 
-.content .bubbles {
+.contents .bubbles {
     overflow: hidden;
     z-index: 2;
     position: absolute;
@@ -35,13 +35,13 @@
     height: 100%;
 }
 
-.content .bubbles .bubble {
+.contents .bubbles .bubble {
     position: absolute;
     border-radius: 50%;
     filter: blur(10px);
 }
 
-.content .bubbles .bubble.bubble-1 {
+.contents .bubbles .bubble.bubble-1 {
     bottom: -1%;
     left: 15%;
     width: 400px;
@@ -50,7 +50,7 @@
     background-color: var(--brown);
 }
 
-.content .bubbles .bubble.bubble-2 {
+.contents .bubbles .bubble.bubble-2 {
     bottom: 40%;
     left: 30%;
     width: 150px;
@@ -59,7 +59,7 @@
     background-color: var(--light-brown);
 }
 
-.content .bubbles .bubble.bubble-3 {
+.contents .bubbles .bubble.bubble-3 {
     bottom: 10%;
     left: 12%;
     width: 100px;
@@ -68,7 +68,7 @@
     background-color: rgb(117, 45, 0);
 }
 
-.content .bubbles .bubble.bubble-4 {
+.contents .bubbles .bubble.bubble-4 {
     bottom: 5%;
     left: 38%;
     width: 80px;
@@ -77,7 +77,7 @@
     background-color: rgb(255, 180, 152);
 }
 
-.content .bubbles .bubble.bubble-5 {
+.contents .bubbles .bubble.bubble-5 {
     bottom: 35%;
     left: 20%;
     width: 40px;
@@ -94,7 +94,7 @@
     100% { transform: translate(0, 0); }
 }
 
-.content .box {
+.contents .box {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -104,7 +104,7 @@
     color: #fff;
 }
 
-.content .box .form-box {
+.contents .box .form-box {
     z-index: 10;
     padding: 20px;
     width: 400px;
@@ -118,7 +118,7 @@
     backdrop-filter: blur(20px);
 }
 
-.content .box .form-box form {
+.contents .box .form-box form {
     width: 100%;
     padding: 10px;
     display: flex;
@@ -127,14 +127,14 @@
     align-items: center;
 }
 
-.content .box .form-box h1 {
+.contents .box .form-box h1 {
     position: relative;
     width: 90%;
     height: 50px;
     font-size: 1.8em;
 }
 
-.content .box .form-box h1:before {
+.contents .box .form-box h1::before {
     content: "";
     position: absolute;
     bottom: 0;
@@ -145,20 +145,24 @@
     background: var(--brown);
 }
 
-.content .box .form-box p {
+.contents .box .form-box p {
+    padding: 10px 20px;
     margin: 13px 0 0 0;
+    border-radius: 10px;
 }
 
-.content .box .form-box p#alert {
+.contents .box .form-box p#alert {
+    background: #fff;
     color: rgb(255, 18, 18);
 }
 
-.content .box .form-box p#success {
+.contents .box .form-box p#success {
+    background: #fff;
     color: rgb(0, 255, 0);
 }
 
 
-.content .box .form-box form input {
+.contents .box .form-box form input {
     width: 90%;
     height: 40px;
     padding: 3px 20px;
@@ -168,17 +172,17 @@
     color: var(--brown);
 }
 
-.content .box .form-box form .name {
+.contents .box .form-box form .name {
     display: flex;
     justify-content: space-between;
 }
 
-.content .box .form-box form .name input {
+.contents .box .form-box form .name input {
     width: 48%;
 }
 
 
-.content .box .form-box form button {
+.contents .box .form-box form button {
     padding: 10px 40px;
     margin: 10px 0;
     background: var(--brown);
@@ -188,14 +192,14 @@
     transition: .3s ease;
 }
 
-.content .box .form-box form button:hover {
+.contents .box .form-box form button:hover {
     text-decoration: none;
     background: #fff;
     color: var(--brown);
     border: 1px solid var(--brown);
 }
 
-.content .box .form-box a {
+.contents .box .form-box a {
     margin-left: 5px;
     text-decoration: underline;
     color: var(--brown);

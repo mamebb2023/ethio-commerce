@@ -6,6 +6,9 @@
     --light-brown: hsl(41, 100%, 90%);
 }
 
+html {
+    scroll-behavior: smooth;
+}
 body {
     position: relative;
 }
@@ -87,7 +90,7 @@ header nav a,
 
 header nav a::before,
 .quick-access nav a::before {
-    content: "";
+    contents: "";
     position: absolute;
     bottom: -1px;
     left: 7px;
@@ -144,22 +147,22 @@ header nav .user-icon a::before,
     display: none;
 }
 
-.content section {
+.contents section {
     position: relative;
 }
 
-.content section {
+.contents section {
     min-height: 500px;
     background: var(--light-brown);
 }
 
-.content section.heading {
+.contents section.heading {
     min-height: 550px;
     display: flex;
     flex-direction: row;
 }
 
-.content section.heading .sec {
+.contents section.heading .sec {
     width: 50%;
     padding: 10px;
     height: inherit;
@@ -168,27 +171,27 @@ header nav .user-icon a::before,
     justify-content: center;
 }
 
-.content section.heading .sec.sec-2 {
+.contents section.heading .sec.sec-2 {
     justify-content: left;
 }
 
-.content section.heading .sec.sec-2 h4 {
+.contents section.heading .sec.sec-2 h4 {
     display: block;
 }
 
-.content section.heading .sec.sec-2 h1 {
+.contents section.heading .sec.sec-2 h1 {
     font-size: 4em;
 }
 
-.content section.heading .sec.sec-2 p {
+.contents section.heading .sec.sec-2 p {
     text-align: right;
 }
 
-.content section.heading .bx-box::before {
-    content: '';
+.contents section.heading .bx-box::before {
+    contents: '';
 }
 
-.content section.heading .bx-box {
+.contents section.heading .bx-box {
     
     position: absolute;
     overflow: hidden;
@@ -198,23 +201,23 @@ header nav .user-icon a::before,
     height: 150px;
 }
 
-.content section.heading .bx-box .bx {
+.contents section.heading .bx-box .bx {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: white;
 }
 
-.content section.heading .bx-box .bx.bx-1 {
+.contents section.heading .bx-box .bx.bx-1 {
     opacity: .5;
     transform: rotate(10deg) translate(-10%, 100%);
 }
 
-.content section.heading .bx-box .bx.bx-2 {
+.contents section.heading .bx-box .bx.bx-2 {
     transform: rotate(-10deg) translate(.2%, 78%);
 }
 
-.content section.poster {
+.contents section.poster {
     background: #fff;
     min-height: 300px;
     color: var(--brown);
@@ -224,13 +227,13 @@ header nav .user-icon a::before,
     align-items: center;
 }
 
-.content section.poster .poster-text {
+.contents section.poster .poster-text {
     padding: 30px;
     width: 65%;
     border: 5px solid var(--brown);
 }
 
-.content section.poster .poster-text h1 {
+.contents section.poster .poster-text h1 {
     margin: 15px 0 20px 0;
 }
 
