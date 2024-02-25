@@ -1,6 +1,14 @@
 import './utils.js';
 
 $(document).ready(() => {
+  // Show header after some scroll
+  $(window).on('scroll',() => {
+    var pos = $(window).scrollTop();
+   
+    if (pos > 300) $('.quick-access').css('transform', 'translate(0, 0)');
+    else $('.quick-access').css('transform', 'translate(0, -50px)');
+  });
+
   // Store the redirectUrl url in localStorage
   $(() => {
     const fullUrl = document.referrer || window.location.href;
@@ -22,12 +30,17 @@ $(document).ready(() => {
       console.log(response);
       $('#userName').append(`${response.firstName} ${response.lastName}`);
       $('#email').append(response.email);
-      $('#user-actions').hide();
-      $('#userIcon').show();
+      $('.user-actions').hide();
+      $('.user-icon').show();
+
+      const fullUrl = window.location.href;
+      const parsedUrl = new URL(fullUrl);
+      const url = parsedUrl.pathname + parsedUrl.search;
+      if (url === '/login' || url === '/register') window.location.href = "/";
     }).fail(err => {
       console.log(err);
-      $('#user-actions').show();
-      $('#userIcon').hide();
+      $('.user-actions').show();
+      $('.user-icon').hide();
     });
   });
 

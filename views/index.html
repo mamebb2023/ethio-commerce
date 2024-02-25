@@ -9,18 +9,35 @@
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body>
-        <header>
+        <div class="quick-access">
             <a href="/" class="logo"></a>
             <nav>
                 <a href="/" class="active">Home</a>
                 <a href="/products">Products</a>
                 <a href="/news">News</a>
                 <a href="/about">About</a>
-                <div id="user-actions" hidden>
+                <div class="user-actions" hidden>
                     <a class="login" href="/login">Login</a>
                     <a class="login" href="/register">Register</a>
                 </div>
-                <div id="userIcon" hidden><a href="/user/me"><i class='bx bx-user-circle'></i></a></div>
+                <div class="user-icon" hidden><a href="/user/me"><i class='bx bx-user-circle'></i></a></div>
+            </nav>
+        </div>
+        <header>
+            <a href="/" class="logo"></a>
+            <nav>
+                <a href="/" class="active">Home</a>
+                <div class="dropdown">
+                    <a href="#">Products</a>
+                    div
+                </div>
+                <a href="/news">Contact Us</a>
+                <a href="/about">About</a>
+                <div class="user-actions" hidden>
+                    <a class="login" href="/login">Login</a>
+                    <a class="login" href="/register">Register</a>
+                </div>
+                <div class="user-icon" hidden><a href="/user/me"><i class='bx bx-user-circle'></i></a></div>
             </nav>
         </header>
         <div class="content">
@@ -40,16 +57,24 @@
                     <p>Greatest place to buy and sell online.</p>
                     </div>
                 </div>
+                <div class="bx-box">
+                    <div class="bx bx-1"></div>
+                    <div class="bx bx-2"></div>
+                </div>
             </section>
             <section class="poster">
                 <div class="poster-text">
-                    <h1>title of the poster</h1>
+                    <h1>Title of the poster</h1>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam officia nobis consectetur rerum laudantium atque neque nesciunt error aspernatur vitae velit esse quam libero incidunt culpa reprehenderit, quisquam saepe cumque?</p>
                 </div>
             </section>
+            <section class="contents">
+                
+            </section>
             <p id="status"></p>
         </div>
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="assets/js/jquery-3.7.1.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
         <script type="module" src="assets/js/script.js"></script>
     </body>
 </html>

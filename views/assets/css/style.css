@@ -23,6 +23,38 @@ button, a {
     cursor: pointer;
 }
 
+.quick-access {
+    transform: translate(0, -50px);
+    z-index: 10;
+    position: fixed;
+    padding: 25px;
+    width: 100%;
+    height: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff89;
+    backdrop-filter: blur(10px);
+    font-size: .9em;
+    transition: all .5s ease;
+}
+
+.quick-access a.logo {
+    width: 50px;
+    height: 35px;
+    background: url(../img/logo.png) no-repeat center center;
+    background-size: contain;
+}
+
+.quick-access nav a.login {
+    padding: 5px 15px;
+    background: var(--brown);
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: .3s ease;
+}
+
 header {
     padding: 0 30px;
     height: 100px;
@@ -39,19 +71,22 @@ header a.logo {
     background-size: contain;
 }
 
-header nav {
+header nav,
+.quick-access nav {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-header nav a {
+header nav a,
+.quick-access nav a {
     position: relative;
     padding: 5px 10px;
     color: var(--brown);
 }
 
-header nav a::before {
+header nav a::before,
+.quick-access nav a::before {
     content: "";
     position: absolute;
     bottom: -1px;
@@ -64,12 +99,15 @@ header nav a::before {
 }
 
 header nav a:hover:before,
-header nav a.active:before {
+header nav a.active:before,
+.quick-access nav a:hover:before, 
+.quick-access nav a.active:before {
     text-decoration: underline;
     width: 80%;
 }
 
-header nav a.login::before {
+header nav a.login::before,
+.quick-access nav a.login::before {
     display: none;
 }
 
@@ -82,23 +120,27 @@ header nav a.login {
     transition: .3s ease;
 }
 
-header nav a.login:hover {
+header nav a.login:hover,
+.quick-access nav a.login:hover {
     text-decoration: none;
     background: transparent;
     color: var(--brown);
     border: 1px solid var(--brown);
 }
 
-header #userIcon i {
+header nav .user-icon i,
+.quick-access nav .user-icon i {
     font-size: 40px;
     transition: .3s ease;
 }
 
-header #userIcon i:hover {
+header nav .user-icon i:hover,
+.quick-access nav .user-icon i:hover { 
     color: black;
 }
 
-header #userIcon a::before {
+header nav .user-icon a::before,
+.quick-access nav .user-icon a::before {
     display: none;
 }
 
@@ -112,12 +154,14 @@ header #userIcon a::before {
 }
 
 .content section.heading {
+    min-height: 550px;
     display: flex;
     flex-direction: row;
 }
 
 .content section.heading .sec {
     width: 50%;
+    padding: 10px;
     height: inherit;
     display: flex;
     align-items: center;
@@ -140,18 +184,40 @@ header #userIcon a::before {
     text-align: right;
 }
 
-.content section.heading .wave {
+.content section.heading .bx-box::before {
+    content: '';
+}
+
+.content section.heading .bx-box {
+    
     position: absolute;
+    overflow: hidden;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 100px;
+    height: 150px;
+}
+
+.content section.heading .bx-box .bx {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+.content section.heading .bx-box .bx.bx-1 {
+    opacity: .5;
+    transform: rotate(10deg) translate(-10%, 100%);
+}
+
+.content section.heading .bx-box .bx.bx-2 {
+    transform: rotate(-10deg) translate(.2%, 78%);
 }
 
 .content section.poster {
-    background: var(--brown);
+    background: #fff;
     min-height: 300px;
-    color: #fff;
+    color: var(--brown);
     text-align: center;
     display: flex;
     justify-content: center;
@@ -159,8 +225,12 @@ header #userIcon a::before {
 }
 
 .content section.poster .poster-text {
-    padding: 20px;
-    width: 60%;
-    border: 1px solid red;
+    padding: 30px;
+    width: 65%;
+    border: 5px solid var(--brown);
+}
+
+.content section.poster .poster-text h1 {
+    margin: 15px 0 20px 0;
 }
 
