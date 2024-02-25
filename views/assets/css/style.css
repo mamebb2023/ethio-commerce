@@ -110,3 +110,57 @@ header #userIcon a::before {
     min-height: 500px;
     background: var(--light-brown);
 }
+
+.content section.heading {
+    display: flex;
+    flex-direction: row;
+}
+
+.content section.heading .sec {
+    width: 50%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content section.heading .sec.sec-2 {
+    justify-content: left;
+}
+
+.content section.heading .sec.sec-2 h4 {
+    display: block;
+}
+
+.content section.heading .sec.sec-2 h1 {
+    font-size: 4em;
+}
+
+.content section.heading .sec.sec-2 p {
+    text-align: right;
+}
+
+.content section.heading .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+}
+
+.content section.poster {
+    background: var(--brown);
+    min-height: 300px;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content section.poster .poster-text {
+    padding: 20px;
+    width: 60%;
+    border: 1px solid red;
+}
+
