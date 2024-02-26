@@ -1,5 +1,4 @@
 import { ObjectId } from 'mongodb';
-import bcrypt from 'bcrypt';
 import { v4 } from 'uuid';
 
 import redisClient from './redis';
@@ -40,9 +39,16 @@ class userUtils {
     return true;
   }
 
-  static encryptPwd(password, salt) {
-    const hashedpwd = bcrypt.hash(password, salt);
-    return hashedpwd;
+  static isAdmin(req, res, next) {
+    const user = req.user;
+    console.log('not', user);
+    if (!user) return res.status(401).send({ error: 'Unauthorized' });
+
+    if (user.firstName === 'admin' && user.email === 'admin@admin.com') {
+      next();
+    } else {
+      return res.status(401).send({ error: 'Unauthorized' });
+    }
   }
 }
 
