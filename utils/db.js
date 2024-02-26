@@ -18,6 +18,7 @@ class DBClient {
 
       this.db = client.db(DB_DATABASE);
       this.userCollection = this.db.collection('users');
+      this.itemsCollerction = this.db.collection('items');
     });
   }
 
@@ -26,7 +27,11 @@ class DBClient {
   }
 
   async nbUsers() {
-    return this.db.collection('users').countDocuments();
+    return this.db.userCollection.countDocuments();
+  }
+
+  async nbItems() {
+    return this.db.itemsCollerction.countDocuments()
   }
 }
 
