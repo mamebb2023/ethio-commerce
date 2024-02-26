@@ -14,13 +14,19 @@
             <nav>
                 <a href="/" class="active">Home</a>
                 <a href="#products">Products</a>
-                <a href="/news">News</a>
+                <a href="/contact-us">Contact Us</a>
                 <a href="/about">About</a>
                 <div class="user-actions" hidden>
                     <a class="login" href="/login">Login</a>
                     <a class="login" href="/register">Register</a>
                 </div>
-                <div class="user-icon" hidden><a href="/user/me"><i class='bx bx-user-circle'></i></a></div>
+                <div class="user-icon" hidden>
+                    <a href="/user/me"><i class='bx bx-user-circle'></i></a>
+                    <a href="/user/cart" class="cart">
+                        <i class='bx bx-cart-alt'></i>
+                        <p id="cartCounter" class="cart-counter">0</p>
+                    </a>
+                </div>
             </nav>
         </div>
         <header>
@@ -28,15 +34,22 @@
             <nav>
                 <a href="/" class="active">Home</a>
                 <a href="#products">Products</a>
-                <a href="/news">Contact Us</a>
+                <a href="/contact-us">Contact Us</a>
                 <a href="/about">About</a>
                 <div class="user-actions" hidden>
                     <a class="login" href="/login">Login</a>
                     <a class="login" href="/register">Register</a>
                 </div>
-                <div class="user-icon" hidden><a href="/user/me"><i class='bx bx-user-circle'></i></a></div>
+                <div class="user-icon" hidden>
+                    <a href="/user/me"><i class='bx bx-user-circle'></i></a>
+                    <a href="/user/cart" class="cart">
+                        <i class='bx bx-cart-alt'></i>
+                        <p id="cartCounter" class="cart-counter">0</p>
+                    </a>
+                </div>
             </nav>
         </header>
+        <p id="status"></p>
         <div class="contents">
             <section class="heading">
                 <div class="sec sec-1">
@@ -66,12 +79,30 @@
                 </div>
             </section>
             <section class="content">
-                <div id="products">
-
+                <h1>Explore Products</h1>
+                <h2></h2>
+                <div class="products">
+                    <div class="item">
+                        <div class="item-img">
+                            <img id="itemImg" src="assets/img/temp-item-img.jpg" alt="Shoe">
+                        </div>
+                        <div class="item-details">
+                            <h3 id="itemName">Men Shoes</h3>
+                            <p id="itemDetails">Men shoes white yellow</p>
+                            <div class="price">
+                                <span id="canceledPrice" class="canceled">Birr 2000</span>
+                                <span id="price" class="price">Birr 1500</span>
+                            </div>
+                        </div>
+                        <div class="item-btn">
+                            <button id="details" class="details">details...</button>
+                            <button id="addToCart" class="add-to-cart"><i class='bx bx-plus'></i></button>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <p id="status"></p>
         </div>
+        <footer></footer>
         <script src="assets/js/jquery-3.7.1.min.js"></script>
         <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
         <script type="module" src="assets/js/script.js"></script>

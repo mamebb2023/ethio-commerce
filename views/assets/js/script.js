@@ -1,6 +1,21 @@
 import './utils.js';
 
 $(document).ready(() => {
+  // Test bakend status (redis and mongoDB)
+  $(() => {
+    $.fn.sendRequest({
+      url: '/status',
+      method: 'GET',
+    }).done((response) => {
+      let message = '<br>Backend connection status:';
+      message += `<br> - Redis: ${response.redis ? 'Connected' : 'Disconnected'}`;
+      message += `<br> - Database: ${response.db ? 'Connected' : 'Disconnected'}`;
+      $('#status').html(message);
+    }).fail((error) => {
+      console.log(error);
+    });
+  });
+
   // Show header after some scroll
   $(window).on('scroll',() => {
     var pos = $(window).scrollTop();
@@ -27,7 +42,6 @@ $(document).ready(() => {
       url: '/verifyUser',
       method: 'POST',
     }).done(response => {
-      console.log(response);
       $('#userName').append(`${response.firstName} ${response.lastName}`);
       $('#email').append(response.email);
       $('.user-actions').hide();
@@ -37,25 +51,10 @@ $(document).ready(() => {
       const parsedUrl = new URL(fullUrl);
       const url = parsedUrl.pathname + parsedUrl.search;
       if (url === '/login' || url === '/register') window.location.href = "/";
+
     }).fail(err => {
-      console.log(err);
       $('.user-actions').show();
       $('.user-icon').hide();
     });
-  });
-
-  // Test bakend status (redis and mongoDB)
-  $(() => {
-    $.fn.sendRequest({
-      url: '/status',
-      method: 'GET',
-    }).done((response) => {
-      let message = '<br>Backend connection status:';
-      message += `<br> - Redis: ${response.redis ? 'Connected' : 'Disconnected'}`;
-      message += `<br> - Database: ${response.db ? 'Connected' : 'Disconnected'}`;
-      $('#status').html(message);
-    }).fail((error) => {
-      console.log(error);
-    });
-  });
+  });  
 });

@@ -10,21 +10,47 @@
         <link rel="stylesheet" href="../assets/css/user.css">
     </head>
     <body>
-        <header>
+        <div class="quick-access">
             <a href="/" class="logo"></a>
             <nav>
                 <a href="/" class="active">Home</a>
-                <a href="/products">Products</a>
-                <a href="/news">News</a>
+                <a href="#products">Products</a>
+                <a href="/contact-us">Contact Us</a>
                 <a href="/about">About</a>
                 <div class="user-actions" hidden>
                     <a class="login" href="/login">Login</a>
                     <a class="login" href="/register">Register</a>
                 </div>
-                <div class="user-icon" hidden><a href="/user/me"><i class='bx bx-user-circle'></i></a></div>
+                <div class="user-icon" hidden>
+                    <a href="/user/me"><i class='bx bx-user-circle'></i></a>
+                    <a href="/user/cart" class="cart">
+                        <i class='bx bx-cart-alt'></i>
+                        <p id="cartCounter" class="cart-counter">0</p>
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <header>
+            <a href="/" class="logo"></a>
+            <nav>
+                <a href="/" class="active">Home</a>
+                <a href="#products">Products</a>
+                <a href="/contact-us">Contact Us</a>
+                <a href="/about">About</a>
+                <div class="user-actions" hidden>
+                    <a class="login" href="/login">Login</a>
+                    <a class="login" href="/register">Register</a>
+                </div>
+                <div class="user-icon" hidden>
+                    <a href="/user/me"><i class='bx bx-user-circle'></i></a>
+                    <a href="/user/cart" class="cart">
+                        <i class='bx bx-cart-alt'></i>
+                        <p id="cartCounter" class="cart-counter">0</p>
+                    </a>
+                </div>
             </nav>
         </header>
-        <div class="content">
+        <div class="contents">
             <section>
                 <div id="userNotif" hidden>
                     <p id="userNotifText">Logging Out...</p>

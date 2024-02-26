@@ -38,7 +38,8 @@
 .contents .bubbles .bubble {
     position: absolute;
     border-radius: 50%;
-    filter: blur(10px);
+    filter: blur(20px);
+    animation: bubble-mov ease-in-out 6s infinite;
 }
 
 .contents .bubbles .bubble.bubble-1 {
@@ -46,7 +47,6 @@
     left: 15%;
     width: 400px;
     height: 400px;
-    animation: bubble-mov 6s infinite;
     background-color: var(--brown);
 }
 
@@ -55,7 +55,6 @@
     left: 30%;
     width: 150px;
     height: 150px;
-    animation: bubble-mov 6s infinite;
     background-color: var(--light-brown);
 }
 
@@ -64,7 +63,6 @@
     left: 12%;
     width: 100px;
     height: 100px;
-    animation: bubble-mov 6s infinite;
     background-color: rgb(117, 45, 0);
 }
 
@@ -73,7 +71,6 @@
     left: 38%;
     width: 80px;
     height: 80px;
-    animation: bubble-mov 6s infinite;
     background-color: rgb(255, 180, 152);
 }
 
@@ -82,14 +79,13 @@
     left: 20%;
     width: 40px;
     height: 40px;
-    animation: bubble-mov 6s infinite;
     background-color: white;
 }
 
 @keyframes bubble-mov {
     0% { transform: translate(0, 0); }
-    25% { transform: translate(11%, 3%); }
-    50% { transform: translate(2%, -1%); }
+    25% { transform: translate(25%, 4%); }
+    50% { transform: translate(30%, -1%); }
     75% { transform: translate(1%, 11%); }
     100% { transform: translate(0, 0); }
 }
@@ -202,5 +198,10 @@
 .contents .box .form-box a {
     margin-left: 5px;
     text-decoration: underline;
+    color: #fff;
+    transition: .3s ease;
+}
+
+.contents .box .form-box a:hover {
     color: var(--brown);
 }
