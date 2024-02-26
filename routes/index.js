@@ -4,6 +4,7 @@ import path from 'path';
 import AppController from '../controllers/AppController';
 import UserController from '../controllers/UserController';
 import AuthController from '../controllers/AuthController';
+import userUtils from '../utils/user';
 
 const router = express.Router();
 
@@ -17,8 +18,16 @@ const routerController = (app) => {
   router.get('/register', (req, res) => res.sendFile(path.resolve(__dirname, '../views/register.html')));
   router.get('/login', (req, res) => res.sendFile(path.resolve(__dirname, '../views/login.html')));
 
+  router.get('/admin', AuthController.verifyUser, userUtils.isAdmin, (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../views/admin.html'));
+  });
+
   router.get('/user/me', AuthController.verifyUser, (req, res) => { 
     res.sendFile(path.resolve(__dirname, '../views/user_panel.html'));
+  });
+
+  router.get('/user/cart', AuthController.verifyUser, (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../views/cart.html'));
   });
 
   // App Controller
