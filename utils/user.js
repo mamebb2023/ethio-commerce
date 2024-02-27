@@ -44,7 +44,8 @@ class userUtils {
     console.log('not', user);
     if (!user) return res.status(401).send({ error: 'Unauthorized' });
 
-    if (user.firstName === 'admin' && user.email === 'admin@admin.com') {
+    const admins = ['admin@admin.com'];
+    if (admins.includes(user.email)) {
       next();
     } else {
       return res.status(401).send({ error: 'Unauthorized' });
