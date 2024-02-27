@@ -1,6 +1,6 @@
 (function ($) {
   $.fn.sendRequest = function (options) {
-    const { url, method = 'GET', data = {}, headers = {} } = options;
+    const { url, method = 'GET', data = {}, headers = {}, enctype } = options;
 
     // For every request, get the current url as
     const fullUrl = window.location.href;
@@ -26,6 +26,7 @@
       url: newUrl,
       method,
       data: mergedData,
+      enctype,
       beforeSend: (xhr) => {
         for (const [key, value] of Object.entries(headers)) {
           xhr.setRequestHeader(key, value);

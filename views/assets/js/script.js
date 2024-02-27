@@ -13,7 +13,8 @@ $(document).ready(() => {
   $(() => {
     const fullUrl = document.referrer || window.location.href;
     const parsedUrl = new URL(fullUrl);
-    if (parsedUrl.pathname === '/login' || parsedUrl.pathname === '/register') {
+    const forbidden = ['/login', '/register', '/admin'];
+    if (forbidden.includes(parsedUrl.pathname)) {
       parsedUrl.pathname = '/';
     }
     const pathAndQuery = parsedUrl.pathname + parsedUrl.search;

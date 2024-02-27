@@ -22,6 +22,14 @@
     background: var(--brown);
 }
 
+.contents section.page p span.red {
+    color: red;
+}
+
+.contents section.page p span.green {
+    color: green;
+}
+
 .contents section.page .info {
     padding: 10px 30px;
     margin: 10px;
@@ -50,20 +58,28 @@
     height: 3px;
 }
 
+.contents section.page .post-item p.alert {
+    text-align: right;
+    padding: 10px;
+    color: red;
+}
+
 .contents section.page .post-item form {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
+
 .contents section.page .post-item form .item-details {
+    width: 55%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
 
 .contents section.page .post-item form .item-name {
-    padding-top: 30px;
+    padding-top: 20px;
     display: flex;
     justify-content: space-between;
 }
@@ -71,13 +87,27 @@
 .contents section.page .post-item form input,
 .contents section.page .post-item form textarea,
 .contents section.page .post-item form button {
-    padding: 10px;
-    margin: 10px;
+    padding: 10px 20px;
+    margin: 5px 10px;
     color: var(--brown);
     border: 1px solid var(--brown);
     border-radius: 25px;
     transition: .3s ease;
 }
+
+.contents section.page .post-item form input#itemName {
+    width: 70%;
+}
+
+
+.contents section.page .post-item form input#itemPrice {
+    width: 30%;
+}
+
+.contents section.page .post-item form textarea {
+    height: 100px;
+}
+
 
 .contents section.page .post-item form .item-img img {
     width: 250px;

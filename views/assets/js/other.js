@@ -1,16 +1,18 @@
 import './utils.js';
 
 $(document).ready(() => {
-  // Test bakend status (redis and mongoDB)
+  // Test bakend status (redis and mongoDB) and display database info
   $(() => {
     $.fn.sendRequest({
       url: '/status',
       method: 'GET',
     }).done((response) => {
-      let message = 'Backend connection status:';
-      message += `<br> - Redis: ${response.redis ? 'Connected' : 'Disconnected'}`;
-      message += `<br> - Database: ${response.db ? 'Connected' : 'Disconnected'}`;
-      $('#status').html(message);
+      const redis = `${response.redis ? '<span class="green">Connected</span>' : '<span class="red">Disconnected</span>'}`;
+      const db = `${response.db ? '<span class="green">Connected</span>' : '<span class="red">Disconnected</span>'}`;
+      $('#users').append(`<span class="green">${response.users}</span>`);
+      $('#items').append(`<span class="green">${response.items}</span>`);
+      $('#redis').append(redis);
+      $('#db').append(db);
     }).fail((error) => {
       console.log(error);
     });
@@ -24,7 +26,7 @@ $(document).ready(() => {
       const maxSize = 1024 * 1024; // 1 Megabyte
 
       if (fileSize > maxSize) {
-        $('.alert').html('Error: Please select an image less than 1 MB.');
+        $('.alert').html('Please select an image less than 1 MB.');
         $(this).val(''); // Clear the file selection
         return;
       }
@@ -43,23 +45,38 @@ $(document).ready(() => {
   });
 
   // Post an item
-  $('#postItem').submit(async (e) => {
-    e.preventDefault();
+  $("#postItem").submit(async function(event) {
+    event.preventDefault();
 
-    const itemImg = $('#itemImg').val();
-    const itemName = $('#itemName').val();
-    const itemPrice = $('#itemPrice').val();
-    const miniDetail = $('#miniDetail').val();
-    const itemDetail = $('#itemDetail').val();
-    if (!itemImg || !itemName || itemPrice || !miniDetail || itemDetail) {
-      $('.alert').html('All inputs are required');
+    const itemPrice = $("#itemPrice").val();
+    const itemName = $("#itemName").val();
+    const itemDetail = $("#itemDetail").val();
+    const miniDetail = $("#miniDetail").val();
+    const itemImg = document.getElementById("itemImg").files[0];
+
+    const formData = { itemName, itemPrice, miniDetail, itemDetail, itemImg };
+    // formData.append("itemPrice", itemPrice);
+    // formData.append("itemName", itemName);
+    // formData.append("miniDetail", miniDetail);
+    // formData.append("itemDetail", itemDetail);
+    // formData.append("itemImg", itemImg);
+    console.log(formData);
+
+    try {
+      const response = await $.fn.sendRequest({
+        url: "/postItem", // Replace with your backend endpoint
+        method: "POST",
+        data: formData,
+        processData: false, // Prevent jQuery from processing data
+        contentType: false, // Allow browser to set content type
+        cache: false,
+        enctype: "multipart/form-data"
+      });
+
+      console.log(response); // Or display a success message to the user
+
+    } catch (error) {
+      console.error(error); // Or display an error message to the user
     }
-
-    $.fn.sendRequest({
-      url: '/postItem',
-      method: 'POST',
-      data: { itemImg, itemName, itemPrice, miniDetail, itemDetail },
-    }).done(response => console.log(response))
-    .fail(err => console.log(err));
   });
 });
