@@ -1,21 +1,6 @@
 import './utils.js';
 
 $(document).ready(() => {
-  // Test bakend status (redis and mongoDB)
-  $(() => {
-    $.fn.sendRequest({
-      url: '/status',
-      method: 'GET',
-    }).done((response) => {
-      let message = '<br>Backend connection status:';
-      message += `<br> - Redis: ${response.redis ? 'Connected' : 'Disconnected'}`;
-      message += `<br> - Database: ${response.db ? 'Connected' : 'Disconnected'}`;
-      $('#status').html(message);
-    }).fail((error) => {
-      console.log(error);
-    });
-  });
-
   // Show header after some scroll
   $(window).on('scroll',() => {
     var pos = $(window).scrollTop();

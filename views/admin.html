@@ -7,7 +7,7 @@
         <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
         <link rel="shortcut icon" href="../assets/img/icon.png" type="image/x-icon">
         <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/user.css">
+        <link rel="stylesheet" href="../assets/css/other.css">
     </head>
     <body>
         <div class="quick-access">
@@ -51,11 +51,39 @@
             </nav>
         </header>
         <div class="contents">
-            
+            <section class="page">
+                <h1>Admin Panel</h1>
+                <div class="info">
+                    <p id="status"></p>
+                    <p id="ubUsers">Total registered users: </p>
+                    <p id="nbItems">Total productes posted: </p>
+                </div>
+                <div class="post-item">
+                    <h1>Post Item</h1>
+                    <p class="alert"></p>
+                    <form action="/postItem" method="POST">
+                        <div class="item-img">
+                            <div id="display-image">
+                                <img src="assets/img/temp-item-img.png" alt="">
+                            </div>
+                            <input id="itemImg" type="file" accept="image/*" required>
+                        </div>
+                        <div class="item-details">
+                            <div class="item-name">
+                                <input id="itemName" type="text" placeholder="Name" required>
+                                <input id="itemPrice" type="number" placeholder="Price" required>
+                            </div>
+                            <input id="miniDetail" type="text" placeholder="Mini Details">
+                            <textarea id="itemDetail" type="text" placeholder="Details" required></textarea>
+                            <button id="postItem" type="submit">Post</button> 
+                        </div>
+                    </form>
+                </div>
+            </section>
         </div>
         <script src="../assets/js/jquery-3.7.1.min.js"></script>
         <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
         <script type="module" src="../assets/js/script.js"></script>
-        <script type="module" src="../assets/js/user.js"></script>
+        <script type="module" src="../assets/js/other.js"></script>
     </body>
 </html>

@@ -1,0 +1,97 @@
+@charset "UTF-8";
+@import url('./style.css');
+
+.contents section.page {
+    padding: 10px;
+}
+
+.contents section.page h1 {
+    position: relative;
+    font-size: 2em;
+    padding: 15px;
+}
+
+.contents section.page h1::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    border-radius: 25px;
+    background: var(--brown);
+}
+
+.contents section.page .info {
+    padding: 10px 30px;
+    margin: 10px;
+    color: var(--brown);
+    background: #fff;
+    border: 1px solid var(--brown);
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.contents section.page .post-item {
+    padding: 20px;
+    margin-left: 30px;
+    width: 800px;
+    border: 1px solid var(--brown);
+    border-radius: 25px;
+    background-color: #fff;
+}
+
+.contents section.page .post-item h1 {
+    font-size: 1.5em;
+}
+
+.contents section.page .post-item h1::before {
+    height: 3px;
+}
+
+.contents section.page .post-item form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.contents section.page .post-item form .item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.contents section.page .post-item form .item-name {
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contents section.page .post-item form input,
+.contents section.page .post-item form textarea,
+.contents section.page .post-item form button {
+    padding: 10px;
+    margin: 10px;
+    color: var(--brown);
+    border: 1px solid var(--brown);
+    border-radius: 25px;
+    transition: .3s ease;
+}
+
+.contents section.page .post-item form .item-img img {
+    width: 250px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.contents section.page .post-item form button {
+    background: var(--brown);
+    color: var(--light-brown);
+}
+
+.contents section.page .post-item form button:hover {
+    background: transparent;
+    color: var(--brown);
+}
+
