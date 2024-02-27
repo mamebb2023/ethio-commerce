@@ -18,14 +18,16 @@ const routerController = (app) => {
   router.get('/register', (req, res) => res.sendFile(path.resolve(__dirname, '../views/register.html')));
   router.get('/login', (req, res) => res.sendFile(path.resolve(__dirname, '../views/login.html')));
 
+  // Protected Sites
   router.get('/admin', AuthController.verifyUser, userUtils.isAdmin, (req, res) => {
     res.sendFile(path.resolve(__dirname, '../views/admin.html'));
   });
-
-  router.get('/user/me', AuthController.verifyUser, (req, res) => { 
-    res.sendFile(path.resolve(__dirname, '../views/user_panel.html'));
+  router.post('/postItem', AuthController.verifyUser, userUtils.isAdmin, (req, res) => {
+    ItemController.postItem(req, res);
   });
-
+  router.get('/user/me', AuthController.verifyUser, (req, res) => { 
+    res.sendFile(path.resolve(__dirname, '../views/user.html'));
+  });
   router.get('/user/cart', AuthController.verifyUser, (req, res) => {
     res.sendFile(path.resolve(__dirname, '../views/cart.html'));
   });
