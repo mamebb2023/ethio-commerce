@@ -310,25 +310,30 @@ header nav .user-icon a::before,
 }
 
 .contents section.content .products {
-    width: 100%;
     padding: 10px 0;
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: space-evenly;
 }
 
 .contents section.content .products .item {
+    display: inline-block;
     width: 220px;
     height: 380px;
     overflow: hidden;
+    margin: 10px 15px;
     border: 1px solid var(--brown);
     border-radius: 25px;
+    background-color: #fff;
     color: var(--brown);
 }
 
 .contents section.content .products .item .item-img {
     height: 220px;
     object-fit: cover;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
 }
 
 .contents section.content .products .item .item-img img {
@@ -345,7 +350,7 @@ header nav .user-icon a::before,
 }
 
 .contents section.content .products .item .item-details p {
-    height: 40px;
+    min-height: 20px;
     font-size: .9em;
 }
 

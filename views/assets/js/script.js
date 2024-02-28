@@ -42,5 +42,18 @@ $(document).ready(() => {
       $('.user-actions').show();
       $('.user-icon').hide();
     });
-  });  
+  });
+
+  // Add to cart system
+  $("#items").on("click", ".add-to-cart", function() {
+    const clickedButton = $(this);
+    const itemId = clickedButton.attr('data-item-id');
+
+    $.fn.sendRequest({
+      url: '/cart',
+      method: 'POST',
+      data: { itemId },
+    }).done(response => console.log(response))
+    .fail(err => console.log(err));
+  });
 });

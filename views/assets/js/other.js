@@ -9,8 +9,8 @@ $(document).ready(() => {
     }).done((response) => {
       const redis = `${response.redis ? '<span class="green">Connected</span>' : '<span class="red">Disconnected</span>'}`;
       const db = `${response.db ? '<span class="green">Connected</span>' : '<span class="red">Disconnected</span>'}`;
-      $('#users').append(`<span class="green">${response.users}</span>`);
-      $('#items').append(`<span class="green">${response.items}</span>`);
+      $('#totalUsers').append(`<span class="green">${response.users}</span>`);
+      $('#totalItems').append(`<span class="green">${response.items}</span>`);
       $('#redis').append(redis);
       $('#db').append(db);
     }).fail((error) => {
