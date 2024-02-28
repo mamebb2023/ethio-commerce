@@ -33,6 +33,7 @@ const upload = multer({
 const router = express.Router();
 
 const routerController = (app) => {
+  app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')));
   app.use(express.static(path.resolve(__dirname, '../views')));
   app.use('/', router);
 
@@ -47,8 +48,10 @@ const routerController = (app) => {
     res.sendFile(path.resolve(__dirname, '../views/admin.html'));
   });
 
+  // Item Controller
   router.post('/post-item', AuthController.verifyUser, userUtils.isAdmin, upload.single('itemImage'),
     async (req, res) => ItemController.postItem(req, res));
+  router.post('/cart', AuthController.verifyUser, (req, res) => ItemController.addToCart(req, res));
 
   router.get('/user/me', AuthController.verifyUser, (req, res) => { 
     res.sendFile(path.resolve(__dirname, '../views/user.html'));
@@ -57,6 +60,8 @@ const routerController = (app) => {
   router.get('/user/cart', AuthController.verifyUser, (req, res) => {
     res.sendFile(path.resolve(__dirname, '../views/cart.html'));
   });
+
+  router.get('/getItems', (req, res) => ItemController.getItem(req, res));
 
   // App Controller
   router.get('/status', (req, res) => AppController.getStatus(req, res));
