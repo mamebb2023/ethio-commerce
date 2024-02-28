@@ -28,7 +28,7 @@ class UserController {
         firstName,
         lastName,
         email,
-        password: hashPassword
+        password: hashPassword,
       });
       return res.status(201).send({ msg: 'User Registered! You Can now login.', redirectUrl: '/login' });
     } catch (err) {
