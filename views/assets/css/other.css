@@ -58,10 +58,17 @@
     height: 3px;
 }
 
-.contents section.page .post-item p.alert {
+.contents section.page .post-item p {
+    padding: 10px 10px 0 0;
     text-align: right;
-    padding: 10px;
+}
+
+.contents section.page .post-item p.alert {
     color: red;
+}
+
+.contents section.page .post-item p.msg {
+    color: green;
 }
 
 .contents section.page .post-item form {
@@ -95,12 +102,12 @@
     transition: .3s ease;
 }
 
-.contents section.page .post-item form input#itemName {
+.contents section.page .post-item form input#item-name {
     width: 70%;
 }
 
 
-.contents section.page .post-item form input#itemPrice {
+.contents section.page .post-item form input#item-price {
     width: 30%;
 }
 

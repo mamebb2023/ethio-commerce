@@ -19,14 +19,14 @@ $(document).ready(() => {
   });
 
   // Display item image
-  $("#itemImg").on('change', function(e) {
+  $("#item-image").on('change', function(e) {
     if (this.files && this.files[0]) {
       const file = this.files[0];
       const fileSize = file.size;
       const maxSize = 1024 * 1024; // 1 Megabyte
 
       if (fileSize > maxSize) {
-        $('.alert').html('Please select an image less than 1 MB.');
+        $('.alert').show().html('Please select an image less than 1 MB.');
         $(this).val(''); // Clear the file selection
         return;
       }
@@ -45,38 +45,34 @@ $(document).ready(() => {
   });
 
   // Post an item
-  $("#postItem").submit(async function(event) {
-    event.preventDefault();
+  $("#item-form").submit(async (e) => {
+    e.preventDefault();
 
-    const itemPrice = $("#itemPrice").val();
-    const itemName = $("#itemName").val();
-    const itemDetail = $("#itemDetail").val();
-    const miniDetail = $("#miniDetail").val();
-    const itemImg = document.getElementById("itemImg").files[0];
+    const itemName = $('#item-name').val();
+    const itemPrice = $('#item-price').val();
+    const miniDetail = $('#mini-detail').val();
+    const itemDetails = $('#item-details').val();
+    const itemImg = document.getElementById('item-image').files[0];
 
-    const formData = { itemName, itemPrice, miniDetail, itemDetail, itemImg };
-    // formData.append("itemPrice", itemPrice);
-    // formData.append("itemName", itemName);
-    // formData.append("miniDetail", miniDetail);
-    // formData.append("itemDetail", itemDetail);
-    // formData.append("itemImg", itemImg);
+    if (!itemName || !itemPrice || !miniDetail || !itemDetails || !itemImg) {
+      $('.alert').show().html('All inputs are required');
+      return;
+    }
+
+    const formData = new FormData(document.getElementById("item-form"));
     console.log(formData);
 
     try {
-      const response = await $.fn.sendRequest({
-        url: "/postItem", // Replace with your backend endpoint
+      const response = await fetch("/post-item", {
         method: "POST",
-        data: formData,
-        processData: false, // Prevent jQuery from processing data
-        contentType: false, // Allow browser to set content type
-        cache: false,
-        enctype: "multipart/form-data"
+        body: formData
       });
 
-      console.log(response); // Or display a success message to the user
-
+      const data = await response.json(); // Parse response as JSON
+      $('.msg').show().html(data.msg);
+      setTimeout(() => window.location.reload(), 2000);
     } catch (error) {
-      console.error(error); // Or display an error message to the user
+      console.error(error); // Or display an error message
     }
   });
 });

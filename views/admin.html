@@ -61,22 +61,22 @@
                 </div>
                 <div class="post-item">
                     <h1>Post Item</h1>
-                    <p class="alert"></p>
-
-                    <form id="postItem" method="POST" enctype="multipart/form-data">
+                    <p class="alert" hidden></p>
+                    <p class="msg" hidden></p>
+                    <form id="item-form" method="POST" enctype="multipart/form-data">
                         <div class="item-img">
                             <div id="display-image">
                                 <img src="assets/img/temp-item-img.png" alt="">
                             </div>
-                            <input id="itemImg" type="file" accept="image/*" required>
+                            <input id="item-image" name="itemImage" type="file" accept="image/*">
                         </div>
                         <div class="item-details">
                             <div class="item-name">
-                                <input id="itemName" type="text" placeholder="Name">
-                                <input id="itemPrice" type="number" placeholder="Price">
+                                <input id="item-name" name="itemName" type="text" placeholder="Name">
+                                <input id="item-price" name="itemPrice" type="number" placeholder="Price">
                             </div>
-                            <input id="miniDetail" type="text" placeholder="Mini Details">
-                            <textarea id="itemDetail" type="text" placeholder="Details"></textarea>
+                            <input id="mini-detail" name="miniDetail" type="text" placeholder="Mini Details">
+                            <textarea id="item-details" name="itemDetails" type="text" placeholder="Details"></textarea>
                             <button type="submit">Post</button> 
                         </div>
                     </form>
@@ -84,8 +84,8 @@
                 </div>
             </section>
         </div>
-        <script src="../assets/js/jquery-3.7.1.min.js"></script>
-        <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
+        <!-- <script src="../assets/js/jquery-3.7.1.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script type="module" src="../assets/js/script.js"></script>
         <script type="module" src="../assets/js/other.js"></script>
     </body>
