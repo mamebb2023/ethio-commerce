@@ -5,16 +5,18 @@ import userUtils from '../utils/user';
 
 class AuthController {
     static async verifyUser(req, res, next) {
+        console.log('\n----------------------------\n');
         // const token = req.header('cookie').split('=')[1];
+        const redirectUrl = req.body.redirectUrl;
         const token = req.header('cookie')
             ?.split('; ')
             ?.find(cookie => cookie.startsWith('X-Token='))
             ?.split('=')[1];
-        const key = `auth_${token}`;
-
         if (!token) {
             return res.status(401).send({ error: 'Unauthorized' });
         }
+
+        const key = `auth_${token}`;
 
         try {
             const userId = await redisClient.get(key);
@@ -24,12 +26,12 @@ class AuthController {
             const user = await userUtils.getUser({ _id: userObjId }, { projection: { password: false } });
             if (!user) return res.status(401).send({ error: 'Unauthorized' });
 
-            req.user = user; // Store userId in request object
-            req.key = key;
+            req.user = { user, key, redirectUrl };
+            console.log('verifyUser', req.user);
             next();
         } catch (error) {
             console.log(error);
-            return res.status(403).send({ error: 'Unauthorized' });
+            return res.status(401).send({ error: 'Unauthorized' });
         }
     }
 }
