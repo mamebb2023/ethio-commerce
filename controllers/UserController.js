@@ -10,7 +10,6 @@ class UserController {
     const {
       firstName, lastName, email, password,
     } = req.body;
-    
    
     if (!firstName) return res.status(400).send({ error: 'First name required' });
     if (!lastName) return res.status(400).send({ error: 'Last name required' });
@@ -72,15 +71,14 @@ class UserController {
   }
 
   static getUser(req, res) {
-    if (!req.user) return res.status(400).send({ error: 'Unauthorized' });
-    const user = {
-      firstName: req.user.firstName,
-      lastName: req.user.lastName,
-      email: req.user.email,
-    }
-    console.log('getUser', req.user);
-    delete req.user;
-    delete req.key;
+    delete req.user.key;
+    if (!req.user.user) return res.status(400).send({ error: 'Unauthorized' });
+
+    delete req.user.user._id;
+
+    const user = req.user.user;
+    console.log('getUser', req.user.user);
+
     return res.status(201).send(user);
   }
 
