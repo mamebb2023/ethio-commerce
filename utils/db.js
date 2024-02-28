@@ -22,7 +22,7 @@ class DBClient {
     });
   }
 
-  isAlive() {
+  async isAlive() {
     return Boolean(this.db);
   }
 

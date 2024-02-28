@@ -40,15 +40,15 @@ class userUtils {
   }
 
   static isAdmin(req, res, next) {
-    const user = req.user;
-    console.log('not', user);
-    if (!user) return res.status(401).send({ error: 'Unauthorized' });
+    const user = req.user.user;
+    if (!user) return res.status(401).send({ error: 'Unauthorized 1' });
 
     const admins = ['admin@admin.com'];
     if (admins.includes(user.email)) {
+      console.log('isAdmin', req.user);
       next();
     } else {
-      return res.status(401).send({ error: 'Unauthorized' });
+      return res.status(401).send({ error: 'Unauthorized 2' });
     }
   }
 }
