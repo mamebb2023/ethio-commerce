@@ -17,7 +17,7 @@
 
 ### Used Languages
 <div align="center"><img src="views/assets/img/nodejs.png"><img src="views/assets/img/mongodb.png"><img src="views/assets/img/bull_.png"></div>
-<div align=""><img src="views/assets/img/html.png"><img src="views/assets/img/css.png"><img src="views/assets/img/js.png"></div>
+<div align="center"><img src="views/assets/img/html.png"><img src="views/assets/img/css.png"><img src="views/assets/img/js.png"></div>
 ![preview](views/assets/img/nodejs.png) ![preview](views/assets/img/mongodb.png) ![preview](views/assets/img/bull_.png)
 ![preview](views/assets/img/html.png) ![preview](views/assets/img/css.png) ![preview](views/assets/img/js.png)
 
