@@ -44,12 +44,14 @@ then
 ```
 npm install
 ```
-<br>
-After that run the NodeJs server:
+<br> After that run the NodeJs server:
 ```
 npm run start-server
 ```
-<br>
-You can go to http://loaclhost:3000/ to view the website
+You can go to
+```
+http://localhost:3000/
+```
+to view the website
 
 ---
