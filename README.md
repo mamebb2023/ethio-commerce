@@ -16,7 +16,7 @@
 * __Product and Inventory Management__: Administrators can efficiently add products and ensuring product availability.</li>
 
 ### Used Languages
-<img align="center" src="views/assets/img/nodejs.png">
+<div align="center"><img src="views/assets/img/nodejs.png"></div>
 ![preview](views/assets/img/nodejs.png) ![preview](views/assets/img/mongodb.png) ![preview](views/assets/img/bull_.png)
 ![preview](views/assets/img/html.png) ![preview](views/assets/img/css.png) ![preview](views/assets/img/js.png)
 
