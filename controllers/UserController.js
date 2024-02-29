@@ -83,8 +83,8 @@ class UserController {
   }
 
   static async userLogout(req, res) {
-    const key = req.key;
-    if (!key) return res.status(400).send({ error: 'Unauthorized' });
+    const key = req.user.key;
+    if (!key) return res.status(400).send({ error: 'Unauthorized 6' });
 
     try{
       await redisClient.del(key);
