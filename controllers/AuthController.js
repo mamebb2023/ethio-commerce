@@ -6,7 +6,6 @@ import userUtils from '../utils/user';
 class AuthController {
     static async verifyUser(req, res, next) {
         console.log('\n----------------------------\n');
-        // const token = req.header('cookie').split('=')[1];
         const redirectUrl = req.body.redirectUrl;
         const token = req.header('cookie')
             ?.split('; ')
