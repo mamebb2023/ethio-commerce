@@ -1,10 +1,12 @@
+![preview](views/assets/img/logo.png)
+
 # Ethio-Commerce
 
 Ethio-COmmerce: A Secure E-commerce Platform
 
 Overview
 
-Ethio-COmmerce empowers businesses and entrepreneurs in Ethiopia and beyond to establish a robust online presence and seamlessly connect with customers through a feature-rich e-commerce platform. Here's a glimpse into its core functionalities:
+<p>Ethio-Commerce empowers businesses and entrepreneurs in Ethiopia and beyond to establish a robust online presence and seamlessly connect with customers through a feature-rich e-commerce platform. Here's a glimpse into its core functionalities:</p>
 
 User-Centric Features:
 <strong>Secure User Login System</strong>: Ensures robust authentication and authorization mechanisms to safeguard user accounts and protect sensitive information.
