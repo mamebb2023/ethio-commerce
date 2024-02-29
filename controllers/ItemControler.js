@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 
 import userUtils from '../utils/user';
 import fileUtils from '../utils/files';
+import { addToCart } from '../utils/files';
 import dbClient from '../utils/db';
 
 class ItemController {
@@ -40,14 +41,12 @@ class ItemController {
       if (!itemId) {
         return res.status(400).send({ error: 'Bad Request: Missing itemId' });
       }
-      console.log('itemId', itemId);
 
       const itemObjId = ObjectId(itemId);
       const item = await fileUtils.getItem({ _id: itemObjId });
       if (!item) {
         return res.status(400).send({ error: 'Bad Request: Item not found' });
       }
-      console.log('item', item);
 
       // Get user and handle unauthorized access
       const email = req.user.user.email;
@@ -57,24 +56,42 @@ class ItemController {
       }
 
       const userId = user._id.toString();
-      if (!await dbClient.cartCollection.findOne({ userId })) {
+      console.log(userId, itemId);
+      if (!await dbClient.cartCollection.findOne({ userId })){
         await dbClient.cartCollection.insertOne({ userId });
       }
-      const userCart = await dbClient.cartCollection.findOne({ userId });
-      console.log('userCart', userCart);
-      if (itemId in userCart) {
-        await dbClient.cartCollection.updateOne({ userId }, { $inc: { [itemId]: 1 } });
-      } else {
-        const newDict = {}
-        newDict[itemId] = 1;
-        await dbClient.cartCollection.updateOne({ userId }, { $set: newDict });
-      }
 
+      await addToCart(userId, itemId);
+
+      const userCart = await fileUtils.getUserCart({ userId });
+
+      const values = Object.values(userCart);
+      const quantity = values.slice(2).map(Number);
+      const quantitySum = quantity.reduce((acc, num) => acc + num, 0) + 1;
+
+      return res.status(200).send({ total: quantitySum});
     } catch (error) {
       console.error('Error adding item to cart:', error);
       // Handle errors globally (e.g., log to a file, send generic error response)
       return res.status(500).send({ error: 'Internal server error' }); // Generic error message
     }
+  }
+
+  static async cartItems(req, res) {
+    delete req.user.key;
+
+    const user = req.user.user;
+    const userId = String(user._id);
+
+    const userCart = await fileUtils.getUserCart({ userId });
+    console.log('userCart', userCart);
+    if (!userCart) return res.send({ msg: 'No items in cart' });
+
+    const values = Object.values(userCart);
+    const quantity = values.slice(2).map(Number);
+    const quantitySum = quantity.reduce((acc, num) => acc + num, 0);
+
+    return res.send({userCart, total: quantitySum});
   }
 }
 
