@@ -16,8 +16,14 @@
 * __Product and Inventory Management__: Administrators can efficiently add products and ensuring product availability.</li>
 
 ### Used Languages
-![preview](views/assets/img/nodejs.png)
+![preview](views/assets/img/nodejs.png) ![preview](views/assets/img/mongodb.png) ![preview](views/assets/img/bull.png)
+![preview](views/assets/img/html.png) ![preview](views/assets/img/css.png) ![preview](views/assets/img/js.png)
 
 ---
 
-To test this  
+### Usage
+Clone this repo
+
+  git clone https://github.com/mamebb2023/ethio-commerce
+
+
