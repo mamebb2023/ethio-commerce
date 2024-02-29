@@ -9,6 +9,7 @@
 html {
     scroll-behavior: smooth;
 }
+
 body {
     position: relative;
 }
@@ -25,6 +26,10 @@ body {
 button, a {
     cursor: pointer;
 }
+
+/* a:hover {
+    text-decoration: underline;
+} */
 
 /* ------- Quick Access ------- */
 .quick-access {
@@ -196,6 +201,27 @@ header nav .user-icon a::before,
     background: var(--light-brown);
 }
 
+.contents section.page {
+    padding: 20px;
+}
+
+.contents section.page h1 {
+    position: relative;
+    font-size: 2em;
+    padding: 15px;
+}
+
+.contents section.page h1::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    border-radius: 25px;
+    background: var(--brown);
+}
+
 /* ------- Opening ------- */
 .contents section.heading {
     min-height: 550px;
@@ -320,12 +346,30 @@ header nav .user-icon a::before,
     display: inline-block;
     width: 220px;
     height: 380px;
-    overflow: hidden;
     margin: 10px 15px;
+    overflow: hidden;
     border: 1px solid var(--brown);
     border-radius: 25px;
     background-color: #fff;
     color: var(--brown);
+}
+
+.contents section.content .products .item-box {
+    position: relative;
+}
+
+.contents section.content .products .item-box p#itemQuantity {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 50px;
+    height: 50px;
+    background: var(--brown);
+    border-radius: 50%;
+    color: var(--light-brown);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .contents section.content .products .item .item-img {
@@ -392,7 +436,8 @@ header nav .user-icon a::before,
     border-right: 1px solid var(--light-brown);
 }
 
-.contents section.content .products .item .item-btn button.add-to-cart {
+.contents section.content .products .item .item-btn button.add-to-cart,
+.contents section.content .products .item .item-btn button.remove-from-cart {
     width: 50px;
     border: none;
     color: var(--light-brown);
@@ -402,18 +447,94 @@ header nav .user-icon a::before,
     transition: .3s ease;
 }
 
+.contents section.content .products .item .item-btn button.remove-from-cart i {
+    transform: rotate(45deg);
+}
+
+.contents section.content .products .item .item-btn button.remove-from-cart:active,
 .contents section.content .products .item .item-btn button.add-to-cart:active i {
     transform: scale(.9);
 }
 
+.contents section.content .products .item .item-btn button.remove-from-cart:hover,
 .contents section.content .products .item .item-btn button.add-to-cart:hover {
     border-left: 1px solid var(--brown);
     color: var(--brown);
     background: transparent;
 }
 
+
+.contents section.content .products #buyItems {
+    padding: 10px 20px;
+    margin: 20px;
+    height: 50px;
+    color: var(--light-brown);
+    background: var(--brown);
+    border-radius: 25px;
+}
+
+.contents section.content .products #buyItems:hover {
+    text-decoration: underline;
+}
 /* ------- Footer ------- */
 
 footer {
-    height: 300px;
+    height: 400px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+footer .foot {
+    padding: 10px;
+    color: var(--brown);
+    width: calc(100% - 200px);
+    height: 100%;
+    background: var(--light-brown);
+    border: 1px solid rgb(255, 208, 98);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+footer .foot .top {
+    display: flex;
+    flex-direction: row;
+    height: 90%;
+}
+
+footer .foot .top .sec {
+    width: 50%;
+    height: 100%;
+}
+
+footer .foot .top .sec,
+footer .foot .bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .foot .top .sec nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .foot .top .sec nav a {
+    color: var(--brown);
+    padding: 10px;
+}
+
+footer .foot .bottom {
+    height: 10%;
+    padding: 20px 10px;
+    margin: 0 50px;
+    border-top: 1px solid var(--brown);
+}
+
+footer .foot .bottom p {
+    margin: 20px 0;
 }

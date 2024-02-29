@@ -47,7 +47,7 @@ $(document).ready(() => {
   // Get the cart items
   $(() => {
     $.fn.sendRequest({
-      url: '/cart',
+      url: '/cart-items',
       method: 'GET',
     }).done(response => {
       console.log(response);
