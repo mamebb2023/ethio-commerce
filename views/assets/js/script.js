@@ -44,16 +44,15 @@ $(document).ready(() => {
     });
   });
 
-  // Add to cart system
-  $("#items").on("click", ".add-to-cart", function() {
-    const clickedButton = $(this);
-    const itemId = clickedButton.attr('data-item-id');
-
+  // Get the cart items
+  $(() => {
     $.fn.sendRequest({
       url: '/cart',
-      method: 'POST',
-      data: { itemId },
-    }).done(response => console.log(response))
+      method: 'GET',
+    }).done(response => {
+      console.log(response);
+      $('.cart-counter').html(response.total);
+    })
     .fail(err => console.log(err));
   });
 });

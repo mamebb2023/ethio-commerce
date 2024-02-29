@@ -26,7 +26,7 @@ $(document).ready(() => {
               </div>
               <div class="item-btn">
                 <button id="details" class="details">details...</button>
-                <button id="addToCart" class="add-to-cart" data-item-id="${item._id.toString()}"><i class='bx bx-plus'></i></button>
+                <button id="addToCart" class="add-to-cart" data-item-id="${item._id}"><i class='bx bx-plus'></i></button>
               </div>
             </div>
           `);
@@ -38,5 +38,20 @@ $(document).ready(() => {
       }
     })
     .fail(err => console.log(err));
+  });
+
+  // Add to cart system
+  $("#items").on("click", ".add-to-cart", function() {
+    const clickedButton = $(this);
+    const itemId = clickedButton.attr('data-item-id');
+
+    $.fn.sendRequest({
+      url: '/cart',
+      method: 'POST',
+      data: { itemId },
+    }).done(response => {
+      console.log(response);
+      $('.cart-counter').html(response.total);
+    }).fail(err => console.log(err));
   });
 });
