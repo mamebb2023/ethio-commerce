@@ -30,15 +30,15 @@ class userUtils {
     return user;
   }
 
-  static async updateUser(collection, filter, update) {
-    console.log(filter, update);
-    try {
-      await collection.updateOne(filter, update);
-      return 'success';
-    } catch (error) {
-      return console.log('fail', error);
-    }
-  }
+  // static async updateUser(collection, filter, update) {
+  //   console.log(filter, update);
+  //   try {
+  //     await collection.updateOne(filter, update);
+  //     return 'success';
+  //   } catch (error) {
+  //     return console.log('fail', error);
+  //   }
+  // }
 
   static isValidId(userId) {
     try {
