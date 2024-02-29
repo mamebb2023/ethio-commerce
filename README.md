@@ -21,7 +21,35 @@
 
 ## Usage
 Clone this repo
-
+```
   git clone https://github.com/mamebb2023/ethio-commerce
+```
+Open a terminal and run:
+```
+  npm install
+```
+In Windows, <br>
+you have to install wsl and then Ubuntu terminal. Then run:
+```
+redis-server
+```
+then download and install Mongodb then run it<br>
+<br>
+In Lunix, <br>
+open a terminal and run:
+```
+redis-server
+```
+then
+```
+npm install
+```
+<br>
+After that run the NodeJs server:
+```
+npm run start-server
+```
+<br>
+You can go to http://loaclhost:3000/ to view the website
 
-
+---
