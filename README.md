@@ -14,3 +14,10 @@
 
 ### Admin-only Panel:
 * __Product and Inventory Management__: Administrators can efficiently add products and ensuring product availability.</li>
+
+### Used Languages
+![preview](views/assets/img/nodejs.png)
+
+---
+
+To test this  
