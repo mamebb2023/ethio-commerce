@@ -7,7 +7,7 @@
 <p>Ethio-Commerce empowers businesses and entrepreneurs in Ethiopia and beyond to establish a robust online presence and seamlessly connect with customers through a feature-rich e-commerce platform. Here's a glimpse into its core functionalities:</p>
 
 ### User-Centric Features:
-<li><strong><b>Secure User Login System</b></strong>: Ensures robust authentication and authorization mechanisms to safeguard user accounts and protect sensitive information.</li>
+<li><b>Secure User Login System</b>: Ensures robust authentication and authorization mechanisms to safeguard user accounts and protect sensitive information.</li>
 <li>Cart Addition and Removal: Users can effortlessly add and remove items from their carts, allowing them to manage their purchases with ease.</li>
 <li>Quantity Adjustments: Customers can conveniently update the quantity of desired items, ensuring their orders accurately reflect their needs.</li>
 <li>Cart Persistence: The platform securely stores cart contents, enabling users to resume their shopping experience across sessions without losing their selections.</li>
