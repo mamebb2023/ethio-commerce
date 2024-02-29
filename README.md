@@ -13,6 +13,6 @@
 <li>Cart Persistence: The platform securely stores cart contents, enabling users to resume their shopping experience across sessions without losing their selections.</li>
 
 ### Admin-only Panel:
-Product and Inventory Management: Administrators can efficiently add, edit, and delete products while managing stock levels and ensuring product availability.
-Order Processing and Fulfillment: The system streamlines order processing, allowing admins to review, confirm, and fulfill orders, providing efficient order fulfillment and customer service.
-Data-Driven Insights: Ethio-COmmerce provides valuable reporting and analytics tools to help administrators gain insights into customer behavior, product performance, and overall business trends.
+<li>Product and Inventory Management: Administrators can efficiently add, edit, and delete products while managing stock levels and ensuring product availability.</li>
+<li>Order Processing and Fulfillment: The system streamlines order processing, allowing admins to review, confirm, and fulfill orders, providing efficient order fulfillment and customer service.</li>
+<li>Data-Driven Insights: Ethio-COmmerce provides valuable reporting and analytics tools to help administrators gain insights into customer behavior, product performance, and overall business trends.</li>
