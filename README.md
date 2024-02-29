@@ -13,4 +13,4 @@
 <li><b>Cart Persistence</b>: The platform securely stores cart contents, enabling users to resume their shopping experience across sessions without losing their selections.</li>
 
 ### Admin-only Panel:
-<li>Product and Inventory Management: Administrators can efficiently add products and ensuring product availability.</li>
+<li><b>Product and Inventory Management</b>b>: Administrators can efficiently add products and ensuring product availability.</li>
