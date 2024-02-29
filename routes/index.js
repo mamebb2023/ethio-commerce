@@ -52,6 +52,7 @@ const routerController = (app) => {
   router.post('/post-item', AuthController.verifyUser, userUtils.isAdmin, upload.single('itemImage'),
     async (req, res) => ItemController.postItem(req, res));
   router.post('/cart', AuthController.verifyUser, (req, res) => ItemController.addToCart(req, res));
+  router.get('/cart', AuthController.verifyUser, (req, res) => ItemController.cartItems(req, res));
 
   router.get('/user/me', AuthController.verifyUser, (req, res) => { 
     res.sendFile(path.resolve(__dirname, '../views/user.html'));
