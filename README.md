@@ -21,7 +21,7 @@
 
 ---
 
-### Usage
+## Usage
 Clone this repo
 
   git clone https://github.com/mamebb2023/ethio-commerce
