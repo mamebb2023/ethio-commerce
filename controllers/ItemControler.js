@@ -6,7 +6,7 @@ import { addToCart } from '../utils/files';
 import dbClient from '../utils/db';
 
 class ItemController {
-  static async getItem(req, res) {
+  static async getItems(req, res) {
     return res.send(await dbClient.itemsCollection.find({}).toArray());
   }
 
@@ -63,35 +63,53 @@ class ItemController {
 
       await addToCart(userId, itemId);
 
-      const userCart = await fileUtils.getUserCart({ userId });
+      const userCart = await fileUtils.getUserCart({ userId }, { projection: { _id: false, userId: false } });
 
-      const values = Object.values(userCart);
-      const quantity = values.slice(2).map(Number);
-      const quantitySum = quantity.reduce((acc, num) => acc + num, 0) + 1;
+      const values = Object.values(userCart).map(Number);
+      const quantitySum = values.reduce((acc, num) => acc + num, 0) + 1;
 
-      return res.status(200).send({ total: quantitySum});
+      return res.status(200).send({ total: quantitySum });
     } catch (error) {
       console.error('Error adding item to cart:', error);
-      // Handle errors globally (e.g., log to a file, send generic error response)
-      return res.status(500).send({ error: 'Internal server error' }); // Generic error message
+      return res.status(500).send({ error: 'Internal server error' });
     }
   }
 
-  static async cartItems(req, res) {
+  static async totalCartItems(req, res) {
     delete req.user.key;
 
     const user = req.user.user;
     const userId = String(user._id);
 
-    const userCart = await fileUtils.getUserCart({ userId });
-    console.log('userCart', userCart);
+    const userCart = await fileUtils.getUserCart({ userId }, { projection: { _id: false, userId: false } });
+    if (!userCart) return;
+
+    const values = Object.values(userCart).map(Number);
+    const quantitySum = values.reduce((acc, num) => acc + num, 0);
+
+    return res.send({ total: quantitySum });
+  }
+
+  static async cartItems(req, res) {
+    const userId = String(req.user.user._id);
+    const userCart = await fileUtils.getUserCart({ userId }, { projection: { _id: false, userId: false } });
     if (!userCart) return res.send({ msg: 'No items in cart' });
+    console.log(userCart);
 
-    const values = Object.values(userCart);
-    const quantity = values.slice(2).map(Number);
-    const quantitySum = quantity.reduce((acc, num) => acc + num, 0);
+    const keys = Object.keys(userCart);
+    const quantity = Object.values(userCart);
+    const userCartItems = []; // Use an array instead of an object
+  
+    for (const itemId of keys) {
+      const item = await fileUtils.getItem({ _id: ObjectId(itemId) }, { projection: { _id: false, userId: false } });
+      userCartItems.push(item); // Add the entire item object to the array
+    }
 
-    return res.send({userCart, total: quantitySum});
+    for (let i = 0; i < userCartItems.length; i++) {
+      userCartItems[i].itemQuantity = quantity[i];
+    }
+
+    return res.status(200).send(userCartItems);
   }
 }
 
