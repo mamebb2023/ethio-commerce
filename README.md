@@ -19,8 +19,6 @@
 <div align="center" styel="display:flex; justify-content: center;"><img src="views/assets/img/nodejs.png"> <img src="views/assets/img/mongodb.png"> <img src="views/assets/img/bull.png"></div>
 <div align="center"><img src="views/assets/img/html.png"> <img src="views/assets/img/css.png"> <img src="views/assets/img/js.png"></div>
 
----
-
 ## Usage
 Clone this repo
 
