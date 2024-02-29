@@ -51,18 +51,15 @@ const routerController = (app) => {
   // Item Controller
   router.post('/post-item', AuthController.verifyUser, userUtils.isAdmin, upload.single('itemImage'),
     async (req, res) => ItemController.postItem(req, res));
+
+  router.get('/user/me', AuthController.verifyUser, (req, res) => res.sendFile(path.resolve(__dirname, '../views/user.html')));
+
+  router.get('/user/cart', AuthController.verifyUser, (req, res) => res.sendFile(path.resolve(__dirname, '../views/cart.html')));
   router.post('/cart', AuthController.verifyUser, (req, res) => ItemController.addToCart(req, res));
+  router.get('/cart-items', AuthController.verifyUser, (req, res) => ItemController.totalCartItems(req, res));
   router.get('/cart', AuthController.verifyUser, (req, res) => ItemController.cartItems(req, res));
 
-  router.get('/user/me', AuthController.verifyUser, (req, res) => { 
-    res.sendFile(path.resolve(__dirname, '../views/user.html'));
-  });
-
-  router.get('/user/cart', AuthController.verifyUser, (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../views/cart.html'));
-  });
-
-  router.get('/getItems', (req, res) => ItemController.getItem(req, res));
+  router.get('/getItems', (req, res) => ItemController.getItems(req, res));
 
   // App Controller
   router.get('/status', (req, res) => AppController.getStatus(req, res));
