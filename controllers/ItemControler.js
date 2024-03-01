@@ -7,7 +7,7 @@ import dbClient from '../utils/db';
 
 class ItemController {
   static async getItems(req, res) {
-    return res.send(await dbClient.itemsCollection.find({}).toArray());
+    return res.send(await dbClient.itemsCollection.find({}, { projection: { userId: false } }).toArray());
   }
 
   static async postItem(req, res) {
