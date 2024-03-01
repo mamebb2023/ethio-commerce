@@ -28,19 +28,24 @@ $(document).ready(() => {
       url: '/verifyUser',
       method: 'POST',
     }).done(response => {
-      $('#userName').append(`${response.firstName} ${response.lastName}`);
-      $('#email').append(response.email);
-      $('.user-actions').hide();
-      $('.user-icon').show();
+      if (!response.error){
+        $('#userName').append(`${response.firstName} ${response.lastName}`);
+        $('#email').append(response.email);
+        $('.user-actions').hide();
+        $('.user-icon').show();
 
-      const fullUrl = window.location.href;
-      const parsedUrl = new URL(fullUrl);
-      const url = parsedUrl.pathname + parsedUrl.search;
-      if (url === '/login' || url === '/register') window.location.href = "/";
+        const fullUrl = window.location.href;
+        const parsedUrl = new URL(fullUrl);
+        const url = parsedUrl.pathname + parsedUrl.search;
+        if (url === '/login' || url === '/register') window.location.href = "/";
+      } else {
+        console.log(response);
+        $('.user-actions').show();
+        $('.user-icon').hide();
+      }
 
     }).fail(err => {
-      $('.user-actions').show();
-      $('.user-icon').hide();
+      console.log(err);
     });
   });
 
@@ -50,9 +55,11 @@ $(document).ready(() => {
       url: '/cart-items',
       method: 'GET',
     }).done(response => {
-      console.log(response);
-      $('.cart-counter').html(response.total);
-    })
-    .fail(err => console.log(err));
+      if (!response.error){
+        $('.cart-counter').html(response.total);
+      } else {
+        console.log(response);
+      }
+    }).fail(err => console.log(err));
   });
 });

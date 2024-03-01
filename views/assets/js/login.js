@@ -12,10 +12,9 @@ $(document).ready(() => {
     const password = $('#password').val();
     const confirmPwd = $('#confirmPwd').val();
 
-    if (password !== confirmPwd) {
-      $('#alert').html('Passwords does not match');
-      return;
-    }
+    // if (firstName.length < 1 || lastName.length < 1) return $('#alert').html('Please enter a valid name');
+    // if (password.length < 8) return $('#alert').html('Password must be atleast 8 characters');
+    if (password !== confirmPwd) return $('#alert').html('Passwords does not match');
 
     $.fn.sendRequest({
       url: '/register',
@@ -23,15 +22,17 @@ $(document).ready(() => {
       data: {
         firstName, lastName, email, password,
       },
-    }).done((response) => {
-      $('#success').show().html(response.msg);
-      $('#alert').hide();
-      setTimeout(() => {
-        window.location.href = response.redirectUrl;
-      }, 2000);
-    }).fail((err) => {
-      $('#alert').show().html(err.responseJSON.error);
-    });
+    }).done(response => {
+      if (!response.error) {
+        $('#alert').hide();
+        $('#success').show().html(response.msg);
+        setTimeout(() => {
+          window.location.href = response.redirectUrl;
+        }, 2000);
+      } else {
+        $('#alert').show().html(response.error); 
+      }
+    }).fail(err => console.log(err));
   });
 
   // Login Form
@@ -48,14 +49,15 @@ $(document).ready(() => {
       method: 'POST',
       data: { email, password },
     }).done((response) => {
-      $('#alert').hide();
-      $('#success').show().html(response.msg);
-      console.log(response.token);
-      setTimeout(() => {
-        window.location.href = response.redirectUrl;
-      }, 2000);
-    }).fail((err) => {
-      $('#alert').show().html(err.responseJSON.error);
-    });
+      if (!response.error) {
+        $('#alert').hide();
+        $('#success').show().html(response.msg);
+        setTimeout(() => {
+          window.location.href = response.redirectUrl;
+        }, 2000);
+      } else {
+        $('#alert').show().html(response.error); 
+      }
+    }).fail(err => console.log(err));
   });
 });

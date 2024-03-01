@@ -14,10 +14,10 @@
             <nav>
                 <a href="/" class="active">Home</a>
                 <a href="#products">Products</a>
-                <a href="/contact-us">Contact Us</a>
+                <a href="#contact-us">Contact Us</a>
                 <a href="/about">About</a>
                 <div class="user-actions" hidden>
-                    <a class="login" href="/login">Login</a>
+                    <a class="login log" href="/login">Login</a>
                     <a class="login" href="/register">Register</a>
                 </div>
                 <div class="user-icon" hidden>
@@ -37,7 +37,7 @@
                 <a href="/contact-us">Contact Us</a>
                 <a href="/about">About</a>
                 <div class="user-actions" hidden>
-                    <a class="login" href="/login">Login</a>
+                    <a class="login log" href="/login">Login</a>
                     <a class="login" href="/register">Register</a>
                 </div>
                 <div class="user-icon" hidden>
@@ -82,24 +82,36 @@
                 <h2></h2>
                 <div id="items" class="products"></div>
             </section>
+            <section id="contact-us" class="contact-us">
+                <div class="contact-bg">
+                    <form id="contactForm" method="POST">
+                        <h1>Contact Us</h1>
+                        <input type="text" name="name" id="name" placeholder="Name">
+                        <input type="email" name="email" id="email" placeholder="Email">
+                        <textarea name="message" id="message" placeholder="Send us a line..."></textarea>
+                        <button id="contactBtn" type="submit">Send</button>
+                    </form>
+                </div>
+            </section>
         </div>
         <footer>
-            <div class="foot">
-                <div class="top">
-                    <div class="sec sec-1">
-                        <img src="assets/img/logo.png" alt="">
-                    </div>
-                    <div class="sec sec-2">
-                        <nav>
-                            <a href="/" class="active">Home</a>
-                            <a href="/contact-us">Contact Us</a>
-                            <a href="/about">About</a>
-                        </nav>
-                    </div>
+            <div class="top">
+                <div class="sec sec-1">
+                    <img src="assets/img/logo.png" alt="">
                 </div>
-                <div class="bottom">
-                    <p>This Website is made by: <span><a href="https://github.com/mamebb2023">@mamebb2023</a></span></p>
+                <div class="sec sec-2">
+                    <nav>
+                        <h2>Quick Access</h2>
+                        <a href="/" class="active">Home</a>
+                        <a href="/cart">Cart</a>
+                        <a href="/contact-us">Contact Us</a>
+                        <a href="#products">Products</a>
+                        <a href="/about">About</a>
+                    </nav>
                 </div>
+            </div>
+            <div class="bottom">
+                <p>This Website is made by: <span><a href="https://github.com/mamebb2023">@mamebb2023</a></span></p>
             </div>
         </footer>
         <!-- <script src="assets/js/jquery-3.7.1.min.js"></script> -->

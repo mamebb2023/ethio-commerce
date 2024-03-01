@@ -7,7 +7,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
 }
 
 body {
@@ -131,12 +131,26 @@ header nav a.login {
     transition: .3s ease;
 }
 
+header nav a.login.log,
+.quick-access nav a.login.log {
+    background: transparent;
+    color: var(--brown);
+    border: 1px solid var(--brown); 
+}
+
 header nav a.login:hover,
 .quick-access nav a.login:hover {
     text-decoration: none;
     background: transparent;
     color: var(--brown);
     border: 1px solid var(--brown);
+}
+
+header nav a.login.log:hover,
+.quick-access nav a.login.log:hover {
+    background: var(--brown);
+    color: #fff;
+    border: 1px solid transparent;
 }
 
 header nav .user-icon,
@@ -343,7 +357,9 @@ header nav .user-icon a::before,
 }
 
 .contents section.content .products .item {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 220px;
     height: 380px;
     margin: 10px 15px;
@@ -373,11 +389,12 @@ header nav .user-icon a::before,
 }
 
 .contents section.content .products .item .item-img {
-    height: 220px;
+    height: 215px;
     object-fit: cover;
     background-color: #fff;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .contents section.content .products .item .item-img img {
@@ -385,7 +402,7 @@ header nav .user-icon a::before,
 }
 
 .contents section.content .products .item .item-details {
-    height: 110px;
+    height: 115px;
     padding: 10px;
 }
 
@@ -463,7 +480,6 @@ header nav .user-icon a::before,
     background: transparent;
 }
 
-
 .contents section.content .products #buyItems {
     padding: 10px 20px;
     margin: 20px;
@@ -476,65 +492,179 @@ header nav .user-icon a::before,
 .contents section.content .products #buyItems:hover {
     text-decoration: underline;
 }
+
+/* ------- Contact Us ------- */
+
+.contents .contact-us {
+    height: 100vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contents .contact-us .contact-bg {
+    position: relative;
+    width: 100%;
+    height: 310px;
+    background: url('../img/contact-bg.jpg') no-repeat fixed center center;
+    background-size: cover;
+}
+
+.contents .contact-us .contact-bg form {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    padding: 20px;
+    margin: 20px 30px;
+    width: 40%;
+    transform: translate(0,-50%);
+    border-radius: 25px;
+    color: var(--brown);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #dddddd3b;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--light-brown);
+    border-bottom: 1px solid var(--light-brown);
+}
+
+.contents .contact-us .contact-bg form h1 {
+    position: relative;
+    width: 100%;
+    font-size: 2.5em;
+    text-align: right;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.contents .contact-us .contact-bg form h1::before {
+    position: absolute;
+    content: '';
+    bottom: -5px;
+    right: 0;
+    width: 50%;
+    height: 5px;
+    border-radius: 10px;
+    background: var(--light-brown);
+}
+
+.contents .contact-us .contact-bg form input,
+.contents .contact-us .contact-bg form textarea {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 10px;
+    border-left: 2px solid var(--brown);
+    border-top: 2px solid var(--brown);
+    border-right: 2px solid var(--light-brown);
+    border-bottom: 2px solid var(--light-brown);
+    border-radius: 25px;
+    transition: .5s ease;
+}
+
+.contents .contact-us .contact-bg form input:hover,
+.contents .contact-us .contact-bg form textarea:hover,
+.contents .contact-us .contact-bg form input:active,
+.contents .contact-us .contact-bg form textarea:active {
+    border-left: 2px solid var(--light-brown);
+    border-top: 2px solid var(--light-brown);
+    border-right: 2px solid var(--brown);
+    border-bottom: 2px solid var(--brown);
+}
+
+.contents .contact-us .contact-bg form textarea {
+    height: 200px;
+}
+
+.contents .contact-us .contact-bg form button {
+    padding: 15px 50px;
+    margin-top: 10px;
+    color: var(--light-brown);
+    background: var(--brown);
+    border: 3px solid var(--brown);
+    border-radius: 25px;
+    transition: .3s ease;
+}
+
+.contents .contact-us .contact-bg form button:hover {
+    font-weight: bold;
+    color: var(--brown);
+    background: transparent;
+    border: 3px solid var(--brown);
+}
+
 /* ------- Footer ------- */
 
 footer {
-    height: 400px;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-footer .foot {
-    padding: 10px;
-    color: var(--brown);
-    width: calc(100% - 200px);
-    height: 100%;
-    background: var(--light-brown);
-    border: 1px solid rgb(255, 208, 98);
-    border-radius: 25px;
+    color: var(--light-brown);
+    height: 300px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom right, var(--brown) 40%, rgb(61, 21, 0));
+}
+
+footer .top {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
-footer .foot .top {
-    display: flex;
-    flex-direction: row;
-    height: 90%;
-}
-
-footer .foot .top .sec {
+footer .top .sec {
     width: 50%;
-    height: 100%;
-}
-
-footer .foot .top .sec,
-footer .foot .bottom {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-footer .foot .top .sec nav {
+footer .top .sec nav {
     display: flex;
     flex-direction: column;
+}
+
+footer .top .sec nav h2 {
+    text-decoration: 3px underline;
+}
+
+footer .top .sec nav a {
+    color: #fff;
+    padding: 5px;
+    margin-left: 10px;
+    transition: .3s ease;
+}
+
+footer .top .sec nav a:hover {
+    margin-left: 13px;
+    color: var(--light-brown);
+}
+
+
+footer .top .sec nav a:nth-child(1) {
+    margin-top: 10px;
+}
+
+
+footer .bottom {
+    width: 70%;
+    height: 20%;
+    display: flex;
     justify-content: center;
     align-items: center;
+    border-top: 1px solid var(--light-brown);
 }
 
-footer .foot .top .sec nav a {
-    color: var(--brown);
-    padding: 10px;
+footer .bottom a {
+    color: var(--light-brown);
+    text-decoration: underline;
 }
 
-footer .foot .bottom {
-    height: 10%;
-    padding: 20px 10px;
-    margin: 0 50px;
-    border-top: 1px solid var(--brown);
+footer .bottom a:hover {
+    text-decoration: none;
 }
 
-footer .foot .bottom p {
-    margin: 20px 0;
-}

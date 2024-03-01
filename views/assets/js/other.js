@@ -13,9 +13,7 @@ $(document).ready(() => {
       $('#totalItems').append(`<span class="green">${response.items}</span>`);
       $('#redis').append(redis);
       $('#db').append(db);
-    }).fail((error) => {
-      console.log(error);
-    });
+    }).fail((error) => console.log(error));
   });
 
   // Display item image

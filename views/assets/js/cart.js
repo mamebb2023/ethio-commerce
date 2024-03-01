@@ -1,6 +1,7 @@
 import './utils.js';
 
 $(document).ready(() => {
+  // Get User Cart Items
     $(() => {
         $.fn.sendRequest({
             url: '/cart',
@@ -37,8 +38,7 @@ $(document).ready(() => {
               });
               $("#items").append('<button id="buyItems">Buy Items!</button>');
             }
-        })
-        .fail(err => console.log(err));
+        }).fail(err => console.log(err));
     });
 });
 

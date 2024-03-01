@@ -30,9 +30,6 @@ $(document).ready(() => {
               </div>
             </div>
           `);
-
-          // Optional: add click/event handlers here for individual buttons within the item
-          
           $("#items").append(itemTemplate);
         });
       }
@@ -50,8 +47,11 @@ $(document).ready(() => {
       method: 'POST',
       data: { itemId },
     }).done(response => {
-      console.log(response);
-      $('.cart-counter').html(response.total);
+      if (!response.error){
+        $('.cart-counter').html(response.total);
+      } else {
+        console.log(response);
+      }
     }).fail(err => console.log(err));
   });
 });
