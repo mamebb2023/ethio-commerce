@@ -9,69 +9,56 @@
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body>
-        <div class="quick-access">
-            <a href="/" class="logo"></a>
-            <nav>
-                <a href="/" class="active">Home</a>
-                <a href="#products">Products</a>
-                <a href="/contact-us">Contact Us</a>
-                <a href="/about">About</a>
-                <div class="user-actions" hidden>
-                    <a class="login" href="/login">Login</a>
-                    <a class="login" href="/register">Register</a>
-                </div>
-                <div class="user-icon" hidden>
-                    <a href="/user/me"><i class='bx bx-user-circle'></i></a>
-                    <a href="/user/cart" class="cart">
-                        <i class='bx bx-cart-alt'></i>
-                        <p id="cartCounter" class="cart-counter">0</p>
-                    </a>
-                </div>
-            </nav>
-        </div>
         <header>
-            <a href="/" class="logo"></a>
-            <nav>
-                <a href="/" class="active">Home</a>
-                <a href="#products">Products</a>
-                <a href="/contact-us">Contact Us</a>
-                <a href="/about">About</a>
-                <div class="user-actions" hidden>
-                    <a class="login" href="/login">Login</a>
-                    <a class="login" href="/register">Register</a>
+            <div class="header">
+                <div class="head-top">
+                    <a href="/" class="logo"></a>
+                    <nav class="links">
+                        <a href="/" class="active">Home</a>
+                        <a href="#products">Products</a>
+                        <a href="#contact-us">Contact Us</a>
+                        <a href="/about">About</a>
+                    </nav>
+                    <div class="user">
+                        <div class="user-actions" hidden>
+                            <a class="login" href="/login">Login</a>
+                            <a href="/register">Register</a>
+                        </div>
+                        <div class="user-icon" hidden>
+                            <a href="/user/me"><i class='bx bx-user-circle'></i></a>
+                            <a href="/user/cart" class="cart">
+                                <i class='bx bx-cart-alt'></i>
+                                <p id="cartCounter" class="cart-counter">0</p>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="user-icon" hidden>
-                    <a href="/user/me"><i class='bx bx-user-circle'></i></a>
-                    <a href="/user/cart" class="cart">
-                        <i class='bx bx-cart-alt'></i>
-                        <p id="cartCounter" class="cart-counter">0</p>
-                    </a>
-                </div>
-            </nav>
+            </div>
         </header>
         <div class="contents">
-            <section>
+            <section class="about">
                 <h1>About</h1>
                 <p>Ethio-commerce is a website one-stop shop for all things Ethiopian! Explore a diverse range of authentic products, conveniently delivered to your doorstep. We connect you with the best Ethiopian businesses and artisans, offering a seamless and secure online shopping experience. Join the revolution and embrace the vibrant Ethiopian e-commerce landscape with Ethio-commerce!</p>
             </section>
         </div>
         <footer>
-            <div class="foot">
-                <div class="top">
-                    <div class="sec sec-1">
-                        <img src="assets/img/logo.png" alt="">
-                    </div>
-                    <div class="sec sec-2">
-                        <nav>
-                            <a href="/" class="active">Home</a>
-                            <a href="/contact-us">Contact Us</a>
-                            <a href="/about">About</a>
-                        </nav>
-                    </div>
+            <div class="top">
+                <div class="sec sec-1">
+                    <img src="assets/img/logo.png" alt="">
                 </div>
-                <div class="bottom">
-                    <p>This Website is made by: <span><a href="https://github.com/mamebb2023">@mamebb2023</a></span></p>
+                <div class="sec sec-2">
+                    <nav>
+                        <h2>Quick Access</h2>
+                        <a href="/" class="active">Home</a>
+                        <a href="/cart">Cart</a>
+                        <a href="/contact-us">Contact Us</a>
+                        <a href="#products">Products</a>
+                        <a href="/about">About</a>
+                    </nav>
                 </div>
+            </div>
+            <div class="bottom">
+                <p>This Website is made by: <span><a href="https://github.com/mamebb2023">@mamebb2023</a></span></p>
             </div>
         </footer>
         <script src="assets/js/jquery-3.7.1.min.js"></script>

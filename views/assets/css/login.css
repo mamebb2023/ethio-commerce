@@ -8,20 +8,20 @@
     right: 25px;
     width: 60px;
     height: 60px;
-    background: var(--brown);
+    background: var(--dark-color);
     border: 2px solid transparent;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5em;
-    color: var(--light-brown);
+    color: var(--light-color);
     transition: .5s ease;
 }
 
 .contents .home-link:hover {
-    color: var(--brown);
-    border: 2px solid var(--brown);
+    color: var(--dark-color);
+    border: 2px solid var(--dark-color);
     background: transparent;
 }
 
@@ -47,7 +47,7 @@
     left: 15%;
     width: 400px;
     height: 400px;
-    background-color: var(--brown);
+    background-color: var(--dark-color);
 }
 
 .contents .bubbles .bubble.bubble-2 {
@@ -55,7 +55,7 @@
     left: 30%;
     width: 150px;
     height: 150px;
-    background-color: var(--light-brown);
+    background-color: var(--light-color);
 }
 
 .contents .bubbles .bubble.bubble-3 {
@@ -138,7 +138,7 @@
     width: 40%;
     height: 5px;
     border-radius: 10px;
-    background: var(--brown);
+    background: var(--dark-color);
 }
 
 .contents .box .form-box p {
@@ -163,9 +163,9 @@
     height: 40px;
     padding: 3px 20px;
     margin: 10px 0;
-    border: 1px solid var(--brown);
+    border: 1px solid var(--dark-color);
     border-radius: 25px;
-    color: var(--brown);
+    color: var(--dark-color);
 }
 
 .contents .box .form-box form .name {
@@ -181,7 +181,7 @@
 .contents .box .form-box form button {
     padding: 10px 40px;
     margin: 10px 0;
-    background: var(--brown);
+    background: var(--dark-color);
     color: #fff;
     border: 1px solid transparent;
     border-radius: 25px;
@@ -191,8 +191,8 @@
 .contents .box .form-box form button:hover {
     text-decoration: none;
     background: #fff;
-    color: var(--brown);
-    border: 1px solid var(--brown);
+    color: var(--dark-color);
+    border: 1px solid var(--dark-color);
 }
 
 .contents .box .form-box a {
@@ -203,5 +203,5 @@
 }
 
 .contents .box .form-box a:hover {
-    color: var(--brown);
+    color: var(--dark-color);
 }

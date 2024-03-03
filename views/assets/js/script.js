@@ -5,8 +5,17 @@ $(document).ready(() => {
   $(window).on('scroll',() => {
     var pos = $(window).scrollTop();
    
-    if (pos > 300) $('.quick-access').css('transform', 'translate(0, 0)');
-    else $('.quick-access').css('transform', 'translate(0, -50px)');
+    if (pos > 300) {
+      $('.head-top').css('padding', '5px 30px');
+      $('.head-top').css('width', '60%');
+      $('.head-top').css('background', '#ffffff24');
+      $('.head-top').css('backdrop-filter', 'blur(15px)');
+    } else {
+      $('.head-top').css('padding', '20px 60px');
+      $('.head-top').css('width', '90%');
+      $('.head-top').css('background', 'transparent');
+      $('.head-top').css('backdrop-filter', 'blur(0px)');
+    }
   });
 
   // Store the redirectUrl url in localStorage
@@ -29,8 +38,10 @@ $(document).ready(() => {
       method: 'POST',
     }).done(response => {
       if (!response.error){
-        $('#userName').append(`${response.firstName} ${response.lastName}`);
-        $('#email').append(response.email);
+        $('#userName').append(`${response.firstName}`);
+        $('.first-name').append(response.firstName);
+        $('.last-name').append(response.lastName);
+        $('.email').append(response.email);
         $('.user-actions').hide();
         $('.user-icon').show();
 

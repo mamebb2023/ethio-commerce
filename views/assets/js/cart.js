@@ -36,7 +36,7 @@ $(document).ready(() => {
                 `);
                 $("#items").append(itemTemplate);
               });
-              $("#items").append('<button id="buyItems">Buy Items!</button>');
+              $("#buyItems").show();
             }
         }).fail(err => console.log(err));
     });
