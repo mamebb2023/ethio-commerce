@@ -73,4 +73,63 @@ $(document).ready(() => {
       }
     }).fail(err => console.log(err));
   });
+
+  // Show item Details
+  $("#items").on("click", ".details", function () {
+    const clickedButton = $(this);
+    const itemId = clickedButton.attr('data-item-id');
+
+    $.fn.sendRequest({
+      url: '/item-details',
+      method: 'GET',
+      data: { itemId },
+    }).done(response => {
+      if (!response.error) {
+        const data = response.item;
+
+        const fullUrl = window.location.href;
+        const parsedUrl = new URL(fullUrl);
+
+        let imgUrl;
+        if (parsedUrl.pathname === '/user/cart') {
+          imgUrl = `../${data.itemImagePath}`;
+        } else {
+          imgUrl = data.itemImagePath;
+        }
+
+        const itemDetails = `
+        <div id="itemDetailBox">
+          <div class="item-details">
+            <div class="item-img-name">
+              <div class="item-img">
+                <img src="${imgUrl}" alt="">
+              </div>
+              <div>
+                <div class="item-name">
+                  <h1>${data.itemName}</h1>
+                  <p>${data.miniDetail}</p>
+                  <h3>${data.itemDetails}</h3>
+                </div>
+                <div class="item-price-btn">
+                  <p>Birr ${data.itemPrice}</p>
+                  <button id="buyItem">Buy</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>`;
+
+        $('.item-detail-box').show();
+        $('.item-detail-row').html(itemDetails);
+      } else {
+        console.log(response);
+      }
+    }).fail(err => console.log(err));
+  });
+
+  // Close item Details
+  $("#close").on("click", function () {
+    $(".item-detail-box").hide();
+  });
 });

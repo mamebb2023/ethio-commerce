@@ -3,13 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>User Cart | Ethio-Commerce</title>
+        <title>Cart | Ethio-Commerce</title>
         <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
         <link rel="shortcut icon" href="../assets/img/icon.png" type="image/x-icon">
         <link rel="stylesheet" href="../assets/css/style.css">
         <link rel="stylesheet" href="../assets/css/user.css">
     </head>
     <body>
+        <div class="item-detail-box" hidden>
+            <div id="close" class="close"><i class='bx bx-x'></i></div>
+            <div class="item-detail-row"></div>
+        </div>
         <header>
             <div class="header">
                 <div class="head-top">
@@ -39,7 +43,8 @@
         <div class="contents">
             <section id="products" class="content">
                 <h1>Your Cart</h1>
-                <h2><p class="alert" style="text-align: center; padding: 10px;"></p></h2>
+                <h2></h2>
+                <h3 class="alert" style="text-align: center; padding: 10px;"></h3>
                 <div id="items" class="products"></div>
                 <button id="buyItems" hidden>Buy Items!</button>
             </section>
