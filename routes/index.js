@@ -55,6 +55,7 @@ const routerController = (app) => {
   router.get('/user/me', AuthController.verifyUser, (req, res) => res.sendFile(path.resolve(__dirname, '../views/user.html')));
   router.get('/user/cart', AuthController.verifyUser, (req, res) => res.sendFile(path.resolve(__dirname, '../views/cart.html')));
   router.post('/cart', AuthController.verifyUser, (req, res) => ItemController.addToCart(req, res));
+  router.post('/remove-cart', AuthController.verifyUser, (req, res) => ItemController.removeFromCart(req, res));
   router.get('/cart-items', AuthController.verifyUser, (req, res) => ItemController.totalCartItems(req, res));
   router.get('/cart', AuthController.verifyUser, (req, res) => ItemController.cartItems(req, res));
 
