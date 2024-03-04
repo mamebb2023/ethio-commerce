@@ -23,16 +23,10 @@ async function processAddToCart(job) {
   
       if (existingItem) {
         // Update quantity if the item already exists
-        await dbClient.cartCollection.updateOne(
-          { userId },
-          { $inc: { [itemId]: 1 } }
-        );
+        await dbClient.cartCollection.updateOne({ userId }, { $inc: { [itemId]: 1 } });
     } else {
         // Insert the item with quantity 1 if it doesn't exist
-        await dbClient.cartCollection.updateOne(
-            { userId },
-            { $set: { [itemId]: 1 } }
-        );
+        await dbClient.cartCollection.updateOne({ userId }, { $set: { [itemId]: 1 } });
       }
     } catch (error) {
       console.error("Error adding item to cart:", error);
