@@ -69,6 +69,29 @@ class ItemController {
     }
   }
 
+  static async removeFromCart(req, res) {
+    delete req.user.user.key;
+    const { itemId } = req.body;
+    const userId = String(req.user.user._id);
+    if (!userUtils.isValidId(itemId)) return res.status(400).send({ error: 'Bad request' });
+
+    const itemObjId = ObjectId(itemId);
+    const item = await fileUtils.getItem({ _id: itemObjId }, { projection: { userId: false } });
+    if (!item) return;
+
+    const userCart = await dbClient.cartCollection.findOne({ userId } , { projection: { _id: false, userId: false } });
+    
+    if (userCart[itemId] === 1) {
+      console.log(userId);
+      await dbClient.cartCollection.updateOne({ userId }, { $unset: { [itemId]: 1 } });
+    } else {
+      console.log('h2');
+      await dbClient.cartCollection.updateOne({ userId }, { $inc: { [itemId]: -1 } });
+    }
+
+    return res.send({ msg: 'success' });
+  }
+
   static async totalCartItems(req, res) {
     delete req.user.key;
 
@@ -95,7 +118,7 @@ class ItemController {
     const userCartItems = []; // Use an array instead of an object
   
     for (const itemId of keys) {
-      const item = await fileUtils.getItem({ _id: ObjectId(itemId) }, { projection: { _id: false, userId: false } });
+      const item = await fileUtils.getItem({ _id: ObjectId(itemId) }, { projection: { userId: false } });
       userCartItems.push(item); // Add the entire item object to the array
     }
 
@@ -108,6 +131,7 @@ class ItemController {
 
   static async itemDetails(req, res) {
     const itemId = req.query.itemId;
+    console.log(req.body, req.query);
 
     if (!userUtils.isValidId(itemId)) return res.status(200).send({ error: 'Invalid item id' });
     console.log(itemId);
