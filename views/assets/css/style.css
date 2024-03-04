@@ -2,8 +2,8 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Anta&display=swap'); */
 
 :root {
-    --dark-color: hsl(123, 100%, 15%);
-    --light-color: hsl(123, 100%, 90%);
+    --dark-color: hsl(123, 100%, 10%);
+    --light-color: hsl(123, 100%, 95%);
 }
 
 ::-webkit-scrollbar {
@@ -20,7 +20,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
 }
 
 body {
@@ -38,6 +38,136 @@ body {
 
 button, a {
     cursor: pointer;
+}
+
+/* ------- Item Detail Box ------- */
+
+#itemDetailBox {
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: hsla(0, 0%, 0%, 0.7);
+    transition: .3s ease;
+    animation: fadeIn .5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.item-detail-box .close {
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    margin: 10px;
+    color: var(--light-color);
+    font-size: 3em;
+    transition: .3s ease;
+    animation: fadeIn .3s;
+}
+
+.item-detail-box .close:hover {
+    cursor: pointer;
+}
+
+.item-detail-box .close:active {
+    transform: scale(.9);
+}
+
+#itemDetailBox .item-details {
+    z-index: 3;
+    position: absolute;
+    width: 700px;
+    top: 50%;
+    left: 50%;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+#itemDetailBox .item-details .close:hover {
+    color: #fff;
+}
+
+
+#itemDetailBox .item-details .item-img-name {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#itemDetailBox .item-details .item-img-name .item-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    object-fit: cover;
+}
+
+#itemDetailBox .item-details .item-img-name .item-img img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+#itemDetailBox .item-details .item-img-name .item-name {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+#itemDetailBox .item-details .item-img-name .item-name p {
+    text-align: right;
+    padding: 10px;
+}
+
+#itemDetailBox .item-details h3 {
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    color: var(--dark-color);
+    background: var(--light-color);
+}
+
+#itemDetailBox .item-details .item-price-btn {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 20px 30px;
+}
+
+#itemDetailBox .item-details .item-price-btn p {
+    color: green;
+    margin: 0 10px;
+}
+
+#itemDetailBox .item-details .item-price-btn button {
+    padding: 10px 30px;
+    color: var(--light-color);
+    border: 1px solid var(--dark-color);
+    border-radius: 25px;
+    background: var(--dark-color);
+    transition: .3s ease;
+}
+
+#itemDetailBox .item-details .item-price-btn button:hover {
+    background: transparent;
+    color: var(--dark-color);
+}
+
+#itemDetailBox .item-details .item-price-btn button:active {
+    transform: scale(.9);
 }
 
 /* ------- Header ------- */
@@ -97,6 +227,10 @@ header .head-top nav a::before {
     width: 0%;
     background: var(--light-color);
     transition: .3s ease;
+}
+
+header .head-top nav a.active::before {
+    width: 70%;
 }
 
 header .head-top nav a:hover:before {
@@ -296,7 +430,7 @@ header .head-bottom .sec h1 span {
     justify-content: space-between;
     width: 220px;
     height: 380px;
-    margin: 10px 15px;
+    margin: 15px 15px;
     overflow: hidden;
     border: 1px solid var(--dark-color);
     border-radius: 25px;
@@ -396,10 +530,6 @@ header .head-bottom .sec h1 span {
     background: var(--dark-color);
     font-size: 1.8em;
     transition: .3s ease;
-}
-
-.contents section.content .products .item .item-btn button.remove-from-cart i {
-    transform: rotate(45deg);
 }
 
 .contents section.content .products .item .item-btn button.remove-from-cart:active,

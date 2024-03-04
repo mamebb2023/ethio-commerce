@@ -7,10 +7,11 @@ $(document).ready(() => {
       url: '/status',
       method: 'GET',
     }).done((response) => {
-      const redis = `${response.redis ? '<span class="green">Connected</span>' : '<span class="red">Disconnected</span>'}`;
-      const db = `${response.db ? '<span class="green">Connected</span>' : '<span class="red">Disconnected</span>'}`;
-      $('#totalUsers').append(`<span class="green">${response.users}</span>`);
-      $('#totalItems').append(`<span class="green">${response.items}</span>`);
+      console.log(response);
+      const redis = `${response.status.redis ? '<span class="green">Connected</span>' : '<span class="red">Disconnected</span>'}`;
+      const db = `${response.status.db ? '<span class="green">Connected</span>' : '<span class="red">Disconnected</span>'}`;
+      $('#totalUsers').append(`<span class="green">${response.status.nbUsers}</span>`);
+      $('#totalItems').append(`<span class="green">${response.status.nbItems}</span>`);
       $('#redis').append(redis);
       $('#db').append(db);
     }).fail((error) => console.log(error));
@@ -34,7 +35,7 @@ $(document).ready(() => {
       reader.onload = function(e) {
         var img = document.createElement('img');
         img.src = e.target.result;
-        $("#display-image").empty(); // Clear previous image (if any)
+        $("#display-image").empty();
         $("#display-image").append(img);
       };
 

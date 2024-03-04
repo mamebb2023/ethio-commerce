@@ -1,7 +1,7 @@
 import './utils.js';
 
 $(document).ready(() => {
-    // Get all items that are posted
+  // Get all items that are posted
   $(() => {
     $.fn.sendRequest({
       url: '/getItems',
@@ -25,7 +25,7 @@ $(document).ready(() => {
                 </div>
               </div>
               <div class="item-btn">
-                <button id="details" class="details">details...</button>
+                <button id="details" class="details" data-item-id="${item._id}">details...</button>
                 <button id="addToCart" class="add-to-cart" data-item-id="${item._id}"><i class='bx bx-plus'></i></button>
               </div>
             </div>
@@ -35,7 +35,7 @@ $(document).ready(() => {
       }
     })
     .fail(err => console.log(err));
-  });
+  }); 
 
   // Add to cart system
   $("#items").on("click", ".add-to-cart", function() {
@@ -53,5 +53,55 @@ $(document).ready(() => {
         console.log(response);
       }
     }).fail(err => console.log(err));
+  });
+
+  // Show item Details
+  $("#items").on("click", ".details", function () {
+    const clickedButton = $(this);
+    const itemId = clickedButton.attr('data-item-id');
+    console.log(itemId);
+
+    $.fn.sendRequest({
+      url: '/item-details',
+      method: 'GET',
+      data: { itemId },
+    }).done(response => {
+      if (!response.error) {
+        console.log(response);
+        const data = response.item;
+        const itemDetails = `
+        <div id="itemDetailBox">
+          <div class="item-details">
+            <div class="item-img-name">
+              <div class="item-img">
+                <img src="${data.itemImagePath}" alt="">
+              </div>
+              <div>
+                <div class="item-name">
+                  <h1>${data.itemName}</h1>
+                  <p>${data.miniDetail}</p>
+                  <h3>${data.itemDetails}</h3>
+                </div>
+                <div class="item-price-btn">
+                  <p>Birr ${data.itemPrice}</p>
+                  <button id="buyItem">Buy</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>`;
+        $('.item-detail-box').show();
+        $('.item-detail-row').html(itemDetails);
+      } else {
+      console.log(response);
+    }
+    }).fail(err => console.log(err));
+  });
+
+  // Close item Details
+  $("#close").on("click", function () {
+    console.log('hi');
+    $(".item-detail-box").hide();
   });
 });
