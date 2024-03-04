@@ -43,15 +43,15 @@ const routerController = (app) => {
   router.get('/register', (req, res) => res.sendFile(path.resolve(__dirname, '../views/register.html')));
   router.get('/login', (req, res) => res.sendFile(path.resolve(__dirname, '../views/login.html')));
 
-  // Protected Sites
+  // Admin utils
   router.get('/admin', AuthController.verifyUser, userUtils.isAdmin, (req, res) => {
     res.sendFile(path.resolve(__dirname, '../views/admin.html'));
   });
-
-  // Item Controller
   router.post('/post-item', AuthController.verifyUser, userUtils.isAdmin, upload.single('itemImage'),
     async (req, res) => ItemController.postItem(req, res));
+  router.get('/status', AuthController.verifyUser, userUtils.isAdmin, (req, res) => AppController.getStatus(req, res));
 
+  // User sites
   router.get('/user/me', AuthController.verifyUser, (req, res) => res.sendFile(path.resolve(__dirname, '../views/user.html')));
   router.get('/user/cart', AuthController.verifyUser, (req, res) => res.sendFile(path.resolve(__dirname, '../views/cart.html')));
   router.post('/cart', AuthController.verifyUser, (req, res) => ItemController.addToCart(req, res));
@@ -59,10 +59,8 @@ const routerController = (app) => {
   router.get('/cart', AuthController.verifyUser, (req, res) => ItemController.cartItems(req, res));
 
   router.get('/getItems', (req, res) => ItemController.getItems(req, res));
-
-  // App Controller
-  router.get('/status', (req, res) => AppController.getStatus(req, res));
-
+  router.get('/item-details', (req, res) => ItemController.itemDetails(req, res));
+  
   // User Controller
   router.post('/login', (req, res) => UserController.userLogin(req, res));
   router.post('/register', (req, res) => UserController.userRegister(req, res));
