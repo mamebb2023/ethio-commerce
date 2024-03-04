@@ -38,22 +38,16 @@ class ItemController {
     try {
       // Validate and handle missing itemId
       const itemId = req.body.itemId;
-      if (!itemId) {
-        return res.status(400).send({ error: 'Bad Request: Missing itemId' });
-      }
+      if (!itemId) return res.status(400).send({ error: 'Bad Request: Missing itemId' });
 
       const itemObjId = ObjectId(itemId);
       const item = await fileUtils.getItem({ _id: itemObjId });
-      if (!item) {
-        return res.status(400).send({ error: 'Bad Request: Item not found' });
-      }
+      if (!item) return res.status(400).send({ error: 'Bad Request: Item not found' });
 
       // Get user and handle unauthorized access
       const email = req.user.user.email;
       const user = await userUtils.getUser({ email }, { projection: { password: false } });
-      if (!user) {
-        return res.status(401).send({ error: 'Unauthorized' });
-      }
+      if (!user) return res.status(401).send({ error: 'Unauthorized' });
 
       const userId = user._id.toString();
       console.log(userId, itemId);
@@ -110,6 +104,19 @@ class ItemController {
     }
 
     return res.status(200).send(userCartItems);
+  }
+
+  static async itemDetails(req, res) {
+    const itemId = req.query.itemId;
+
+    if (!userUtils.isValidId(itemId)) return res.status(200).send({ error: 'Invalid item id' });
+    console.log(itemId);
+
+    const itemObjId = ObjectId(itemId);
+    const item = await fileUtils.getItem({ _id: itemObjId }, { projection: { _id: false, userId: false } });
+    if (!item) return res.status(400).send({ error: 'Bad Request' });
+
+    return res.status(200).send({ item });
   }
 }
 
