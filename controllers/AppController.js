@@ -6,10 +6,12 @@ class AppController {
     const status = {
       redis: await redisClient.isAlive(),
       db: await dbClient.isAlive(),
-      users: await dbClient.nbUsers(),
-      items: await dbClient.nbItems(),
+      nbUsers: await dbClient.nbUsers(),
+      nbItems: await dbClient.nbItems(),
+      users: await dbClient.userCollection.find({}, { projection: { password: false } }).toArray(),
     };
-    res.status(200).send(status);
+
+    return res.status(200).send({ status, users });
   }
 }
 
