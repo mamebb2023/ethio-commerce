@@ -6,10 +6,15 @@ import dbClient from '../utils/db';
  */
 class AppController {
   /**
-   * A function to get the status of the whole database
-   * @param {*} req Request form user
-   * @param {*} res Response sent to user
-   * @returns A response with status code and the status
+   * A function to get the overall health and status information of the system.
+   *
+   * This function checks the health of the Redis server and database,
+   * retrieves the number of users and items, and fetches a list of users
+   * (excluding their passwords).
+   *
+   * @param {Object} req The HTTP request object.
+   * @param {Object} res The HTTP response object.
+   * @returns {Object} An object containing the system status information.
    */
   static async getStatus(req, res) {
     const status = {
@@ -19,7 +24,7 @@ class AppController {
       nbItems: await dbClient.nbItems(),
       users: await dbClient.userCollection.find(
         {},
-        { projection: { password: false } }
+        { projection: { password: false } },
       ).toArray(),
     };
 
