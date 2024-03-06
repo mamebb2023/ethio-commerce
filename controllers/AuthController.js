@@ -3,9 +3,18 @@ import { ObjectId } from 'mongodb';
 import redisClient from '../utils/redis';
 import userUtils from '../utils/user';
 
+/**
+ * Authentication Controller
+ */
 class AuthController {
+    /**
+   * A function to verify a user
+   * @param {*} req Request form user
+   * @param {*} res Response sent to user
+   * @param {function} next the next function to be executed
+   * @returns If success, it continues the next function to be executed
+   */
     static async verifyUser(req, res, next) {
-        console.log('\n----------------------------\n');
         const redirectUrl = req.body.redirectUrl;
         const token = req.header('cookie')
             ?.split('; ')
