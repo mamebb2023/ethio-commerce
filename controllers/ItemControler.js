@@ -10,10 +10,17 @@ import dbClient from '../utils/db';
  */
 class ItemController {
   /**
-   * A function get an item from items database
-   * @param {*} req Request form user
-   * @param {*} res Response sent to user
-   * @returns A response with the found item
+   * A function to retrieve items from the database,
+   * excluding the "userId" field for potential security or privacy reasons.
+   *
+   * This function fetches all items from the "itemsCollection" in the database,
+   * excluding the "userId" field from the returned data using a projection.
+   * This exclusion might be done to protect user privacy or prevent unnecessary information leakage.
+   *
+   * @param {Object} req The HTTP request object (potentially containing filters or pagination parameters).
+   * @param {Object} res The HTTP response object.
+   * @returns {Promise<Array>} A promise that resolves to an array of item objects,
+   * excluding the "userId" field.
    */
   static async getItems(req, res) {
     return res.send(await dbClient.itemsCollection.find(
@@ -23,10 +30,16 @@ class ItemController {
   }
 
   /**
-   * A function to post an item on the website
-   * @param {*} req Request form user
-   * @param {*} res Response sent to user
-   * @returns A response with status code and a json message
+   * A function to create a new item listing on the website.
+   *
+   * This function allows authorized users to post an item with details
+   * such as name, price, short description, detailed description, and an image.
+   * It validates the user's ID and required fields before inserting the item data into the database.
+   *
+   * @param {Object} req The HTTP request object containing the item data in the body and
+   * potentially the uploaded image in the `files` property.
+   * @param {Object} res The HTTP response object.
+   * @returns {Promise<void>} (No direct return value, sends response using `res`.)
    */
   static async postItem(req, res) {
     const {
@@ -55,11 +68,21 @@ class ItemController {
   }
 
   /**
-   * A function to add an item to user cart with a queue system
-   * @param {*} req Request form user
-   * @param {*} res Response sent to user
-   * @returns A response with status code and
-   *          the total quantity in the user cart
+   * A function to add an item to the user's cart, potentially using a queue system.
+   *
+   * This function allows users to add items to their carts, performing the following actions:
+   *   - Validates the presence of an `itemId` in the request body.
+   *   - Retrieves the item details from the database.
+   *   - Validates the user's email and retrieves user information, excluding the password.
+   *   - Checks if the user's cart exists in the database; if not, creates a new cart.
+   *   - **(Functionality not shown in snippet):** Potentially adds the item to a queue related to the cart (depending on the implementation of the queue system).
+   *   - Retrieves the updated user cart from the database, excluding unnecessary fields.
+   *   - Calculates the total quantity of items in the cart.
+   *   - Sends a response with the status code and the total quantity.
+   *
+   * @param {Object} req The HTTP request object containing the item ID in the body.
+   * @param {Object} res The HTTP response object.
+   * @returns {Promise<void>} (No direct return value, sends response using `res`.)
    */
   static async addToCart(req, res) {
     try {
@@ -100,10 +123,22 @@ class ItemController {
   }
 
   /**
-   * A function to remove a cart item from the user cart
-   * @param {*} req Request form user
-   * @param {*} res Response sent to user
-   * @returns A response with status code and a json message
+   * A function to remove an item from the user's cart.
+   *
+   * This function allows users to remove specific items from their carts.\
+   * It performs the following actions:
+   *   - Validates the presence of an `itemId` in the request body.
+   *   - Validates the user's ID.
+   *   - Retrieves the item details and user cart, excluding the "userId" field from both to
+   *      potentially protect user privacy or prevent unnecessary information leakage.
+   *   - Checks if the quantity of the item in the cart is 1.
+   *     - If yes, it removes the item entirely using the `$unset` operator.
+   *     - If no, it decrements the quantity of the item using the `$inc` operator.
+   *   - Sends a response with a success message.
+   *
+   * @param {Object} req The HTTP request object containing the item ID in the body.
+   * @param {Object} res The HTTP response object.
+   * @returns {Promise<void>} (No direct return value, sends response using `res`.)
    */
   static async removeFromCart(req, res) {
     delete req.user.user.key;
@@ -132,10 +167,17 @@ class ItemController {
   }
 
   /**
-   * A function to get the total items in the user cart
-   * @param {*} req Request form user
-   * @param {*} res Response sent to user
-   * @returns A response with the total quantity of the user
+   * A function to retrieve the total number of items in the user's cart.
+   *
+   * This function fetches the user's shopping cart from the database,
+   * excluding the "userId" field to potentially protect user privacy or
+   * prevent unnecessary information leakage.
+   * It then calculates the total quantity of items in the cart by summing up individual item
+   * quantities and sends the result as a response.
+   *
+   * @param {Object} req The HTTP request object containing the user information in the `user` property.
+   * @param {Object} res The HTTP response object.
+   * @returns {Promise<void>} (No direct return value, sends response using `res`.)
    */
   static async totalCartItems(req, res) {
     delete req.user.key;
