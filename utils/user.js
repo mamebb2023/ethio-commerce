@@ -41,14 +41,14 @@ class userUtils {
 
   static isAdmin(req, res, next) {
     const user = req.user.user;
-    if (!user) return res.status(401).send({ error: 'Unauthorized 1' });
+    if (!user) return res.status(401).send({ error: 'Unauthorized' });
 
     const admins = ['admin@admin.com'];
     if (admins.includes(user.email)) {
       console.log('isAdmin', req.user);
       next();
     } else {
-      return res.status(401).send({ error: 'Unauthorized 2' });
+      return res.status(401).send({ error: 'Unauthorized' });
     }
   }
 }
