@@ -6,7 +6,7 @@ $(document).ready(() => {
     $.fn.sendRequest({
         url: '/cart',
         method: 'GET'
-    }).done(data => {
+    }).done((data) => {
       if (data.length > 0) {
         console.log(data);
         const items = data;
@@ -36,10 +36,10 @@ $(document).ready(() => {
         });
         $("#buyItems").show();
       } else {
-        $(".alert").html(data.msg || 'No items in cart!');
+        $(".alert").html(data.msg || 'No items in cart !');
         console.log(data);
       }
-    }).fail(err => console.log(err));
+    }).fail((err) => console.log(err));
   });
 
   $('#items').on('click', '.remove-from-cart', function () {
@@ -57,6 +57,6 @@ $(document).ready(() => {
       } else {
         console.log(response);
       }
-    }).fail(err => console.log(err));
+    }).fail((err) => console.log(err));
   });
 });

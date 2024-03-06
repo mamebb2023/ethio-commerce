@@ -22,7 +22,7 @@ $(document).ready(() => {
       data: {
         firstName, lastName, email, password,
       },
-    }).done(response => {
+    }).done((response) => {
       if (!response.error) {
         $('#alert').hide();
         $('#success').show().html(response.msg);
@@ -30,9 +30,9 @@ $(document).ready(() => {
           window.location.href = response.redirectUrl;
         }, 2000);
       } else {
-        $('#alert').show().html(response.error); 
+        $('#alert').show().html(response.error);
       }
-    }).fail(err => console.log(err));
+    }).fail((err) => console.log(err));
   });
 
   // Login Form
@@ -56,8 +56,8 @@ $(document).ready(() => {
           window.location.href = response.redirectUrl;
         }, 2000);
       } else {
-        $('#alert').show().html(response.error); 
+        $('#alert').show().html(response.error);
       }
-    }).fail(err => console.log(err));
+    }).fail((err) => console.log(err));
   });
 });

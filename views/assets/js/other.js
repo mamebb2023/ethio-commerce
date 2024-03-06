@@ -14,11 +14,23 @@ $(document).ready(() => {
       $('#totalItems').append(`<span class="green">${response.status.nbItems}</span>`);
       $('#redis').append(redis);
       $('#db').append(db);
+
+      let i = 0;
+      response.status.users.forEach(user => {
+        $('#tableBody').append(`
+        <tr>
+          <td>${i+=1}</td>
+          <td>${user.firstName}</td>
+          <td>${user.lastName}</td>
+          <td>${user.email}</td>
+        </tr>
+        `);
+      });
     }).fail((error) => console.log(error));
   });
 
   // Display item image
-  $("#item-image").on('change', function(e) {
+  $('#item-image').on('change', function (e) {
     if (this.files && this.files[0]) {
       const file = this.files[0];
       const fileSize = file.size;
@@ -30,13 +42,13 @@ $(document).ready(() => {
         return;
       }
 
-      var reader = new FileReader();
+      const reader = new FileReader();
 
-      reader.onload = function(e) {
-        var img = document.createElement('img');
+      reader.onload = function (e) {
+        const img = document.createElement('img');
         img.src = e.target.result;
-        $("#display-image").empty();
-        $("#display-image").append(img);
+        $('#display-image').empty();
+        $('#display-image').append(img);
       };
 
       reader.readAsDataURL(this.files[0]);
@@ -44,7 +56,7 @@ $(document).ready(() => {
   });
 
   // Post an item
-  $("#item-form").submit(async (e) => {
+  $('#item-form').submit(async (e) => {
     e.preventDefault();
 
     const itemName = $('#item-name').val();
@@ -58,13 +70,13 @@ $(document).ready(() => {
       return;
     }
 
-    const formData = new FormData(document.getElementById("item-form"));
+    const formData = new FormData(document.getElementById('item-form'));
     console.log(formData);
 
     try {
-      const response = await fetch("/post-item", {
-        method: "POST",
-        body: formData
+      const response = await fetch('/post-item', {
+        method: 'POST',
+        body: formData,
       });
 
       const data = await response.json(); // Parse response as JSON

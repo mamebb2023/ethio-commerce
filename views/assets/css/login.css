@@ -157,7 +157,6 @@
     color: rgb(0, 255, 0);
 }
 
-
 .contents .box .form-box form input {
     width: 90%;
     height: 40px;
@@ -176,7 +175,6 @@
 .contents .box .form-box form .name input {
     width: 48%;
 }
-
 
 .contents .box .form-box form button {
     padding: 10px 40px;

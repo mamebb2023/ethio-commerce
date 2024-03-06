@@ -2,10 +2,17 @@ import './utils.js';
 
 $(document).ready(() => {
   // Show header after some scroll
-  $(window).on('scroll',() => {
-    var pos = $(window).scrollTop();
-   
-    if (pos > 300) {
+  $(window).on('scroll', () => {
+    const pos = $(window).scrollTop();
+
+    const fullUrl = window.location.href;
+    const parsedUrl = new URL(fullUrl);
+
+    let height;
+    if (parsedUrl.pathname === "/") height = 300;
+    else height = 100;
+
+    if (pos > height) {
       $('.head-top').css('padding', '5px 30px');
       $('.head-top').css('width', '60%');
       $('.head-top').css('background', '#ffffff24');
@@ -36,8 +43,8 @@ $(document).ready(() => {
     $.fn.sendRequest({
       url: '/verifyUser',
       method: 'POST',
-    }).done(response => {
-      if (!response.error){
+    }).done((response) => {
+      if (!response.error) {
         $('#userName').append(`${response.firstName}`);
         $('.first-name').append(response.firstName);
         $('.last-name').append(response.lastName);
@@ -48,16 +55,14 @@ $(document).ready(() => {
         const fullUrl = window.location.href;
         const parsedUrl = new URL(fullUrl);
         const url = parsedUrl.pathname + parsedUrl.search;
-        if (url === '/login' || url === '/register') window.location.href = "/";
+        if (url === '/login' || url === '/register') window.location.href = '/';
       } else {
         console.log(response);
         $('.user-actions').show();
         $('.user-icon').hide();
+        $('#addToCart').hide();
       }
-
-    }).fail(err => {
-      console.log(err);
-    });
+    }).fail((err) => console.log(err));
   });
 
   // Get the cart items
@@ -65,17 +70,17 @@ $(document).ready(() => {
     $.fn.sendRequest({
       url: '/cart-items',
       method: 'GET',
-    }).done(response => {
-      if (!response.error){
+    }).done((response) => {
+      if (!response.error) {
         $('.cart-counter').html(response.total);
       } else {
         console.log(response);
       }
-    }).fail(err => console.log(err));
+    }).fail((err) => console.log(err));
   });
 
   // Show item Details
-  $("#items").on("click", ".details", function () {
+  $('#items').on('click', '.details', function () {
     const clickedButton = $(this);
     const itemId = clickedButton.attr('data-item-id');
 
@@ -83,7 +88,7 @@ $(document).ready(() => {
       url: '/item-details',
       method: 'GET',
       data: { itemId },
-    }).done(response => {
+    }).done((response) => {
       if (!response.error) {
         const data = response.item;
 
@@ -125,11 +130,11 @@ $(document).ready(() => {
       } else {
         console.log(response);
       }
-    }).fail(err => console.log(err));
+    }).fail((err) => console.log(err));
   });
 
   // Close item Details
-  $("#close").on("click", function () {
-    $(".item-detail-box").hide();
+  $('#close').on('click', () => {
+    $('.item-detail-box').hide();
   });
 });

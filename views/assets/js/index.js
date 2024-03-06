@@ -6,11 +6,11 @@ $(document).ready(() => {
     $.fn.sendRequest({
       url: '/getItems',
       method: 'GET',
-    }).done(data => {
+    }).done((data) => {
       console.log(data);
       if (data.length > 0) {
         const items = data;
-        items.forEach(item => {
+        items.forEach((item) => {
           const itemTemplate = $(`
             <div class="item">
               <div class="item-img">
@@ -30,28 +30,27 @@ $(document).ready(() => {
               </div>
             </div>
           `);
-          $("#items").append(itemTemplate);
+          $('#items').append(itemTemplate);
         });
       }
-    })
-    .fail(err => console.log(err));
-  }); 
+    }).fail((err) => console.log(err));
+  });
 
   // Add to cart system
-  $("#items").on("click", ".add-to-cart", function() {
+  $('#items').on('click', '.add-to-cart', function () {
     const clickedButton = $(this);
     const itemId = clickedButton.attr('data-item-id');
 
     $.fn.sendRequest({
-      url: '/cart',
+      url: '/add-cart',
       method: 'POST',
       data: { itemId },
-    }).done(response => {
-      if (!response.error){
+    }).done((response) => {
+      if (!response.error) {
         $('.cart-counter').html(response.total);
       } else {
         console.log(response);
       }
-    }).fail(err => console.log(err));
+    }).fail((err) => console.log(err));
   });
 });

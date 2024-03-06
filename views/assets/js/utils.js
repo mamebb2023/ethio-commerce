@@ -1,6 +1,6 @@
 (function ($) {
   $.fn.sendRequest = function (options) {
-    const { url, method = 'GET', data = {}, headers = {} } = options;
+    const { url, method, data = {}, headers = {} } = options;
 
     // For every request, get the current url as
     const fullUrl = window.location.href;
@@ -12,6 +12,7 @@
       ?.split('; ')
       ?.find(cookie => cookie.startsWith('X-Token='))
       ?.split('=')[1];
+
     const redirectUrl = localStorage.getItem('redirectUrl');
 
     // Merge data and add redirectUrl if available

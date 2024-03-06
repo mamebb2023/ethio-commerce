@@ -45,27 +45,43 @@
                     <p id="totalUsers">Total registered users: </p>
                     <p id="totalItems">Total productes posted: </p>
                 </div>
-                <div class="post-item">
-                    <h1>Post Item</h1>
-                    <p class="alert" hidden></p>
-                    <p class="msg" hidden></p>
-                    <form id="item-form" method="POST" enctype="multipart/form-data">
-                        <div class="item-img">
-                            <div id="display-image">
-                                <img src="assets/img/temp-item-img.png" alt="">
+                <div style="display: flex; justify-content: space-evenly;">
+                    <div class="post-item">
+                        <h1>Post Item</h1>
+                        <p class="alert" hidden></p>
+                        <p class="msg" hidden></p>
+                        <form id="item-form" method="POST" enctype="multipart/form-data">
+                            <div class="item-img">
+                                <div id="display-image">
+                                    <img src="assets/img/temp-item-img.png" alt="">
+                                </div>
+                                <input id="item-image" name="itemImage" type="file" accept="image/*">
                             </div>
-                            <input id="item-image" name="itemImage" type="file" accept="image/*">
-                        </div>
-                        <div class="item-details">
-                            <div class="item-name">
-                                <input id="item-name" name="itemName" type="text" placeholder="Name">
-                                <input id="item-price" name="itemPrice" type="number" placeholder="Price">
+                            <div class="item-details">
+                                <div class="item-name">
+                                    <input id="item-name" name="itemName" type="text" placeholder="Name">
+                                    <input id="item-price" name="itemPrice" type="number" placeholder="Price">
+                                </div>
+                                <input id="mini-detail" name="miniDetail" type="text" placeholder="Mini Details">
+                                <textarea id="item-details" name="itemDetails" type="text" placeholder="Details"></textarea>
+                                <button type="submit">Post</button> 
                             </div>
-                            <input id="mini-detail" name="miniDetail" type="text" placeholder="Mini Details">
-                            <textarea id="item-details" name="itemDetails" type="text" placeholder="Details"></textarea>
-                            <button type="submit">Post</button> 
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                    <div class="users">
+                        <h1>Users</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </div>

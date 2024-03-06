@@ -20,7 +20,7 @@
 }
 
 html {
-    /* scroll-behavior: smooth; */
+    scroll-behavior: smooth;
 }
 
 body {
@@ -689,7 +689,6 @@ header .head-bottom .sec h1 span {
     text-indent: 50px;
 }
 
-
 /* ------- Footer ------- */
 
 footer {
@@ -699,7 +698,7 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(to bottom right, var(--dark-color) 40%, black);
+    background: linear-gradient(to bottom right, var(--dark-color) 40%, rgb(20, 20, 20));
 }
 
 footer .top {
@@ -743,6 +742,7 @@ footer .top .sec nav a:nth-child(1) {
 }
 
 footer .bottom {
+    opacity: .5;
     width: 70%;
     height: 20%;
     display: flex;
