@@ -14,8 +14,8 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now();
-    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop());
-  }
+    cb(null, `${file.fieldname}-${uniqueSuffix}.${file.originalname.split('.').pop()}`);
+  },
 });
 
 const upload = multer({
@@ -27,7 +27,7 @@ const upload = multer({
     const allowedExtensions = ['.jpg', '.jpeg', '.png']; // Allowed extensions
     const extname = path.extname(file.originalname);
     cb(null, allowedExtensions.includes(extname));
-  }
+  },
 });
 
 const router = express.Router();
@@ -61,7 +61,7 @@ const routerController = (app) => {
 
   router.get('/getItems', (req, res) => ItemController.getItems(req, res));
   router.get('/item-details', (req, res) => ItemController.itemDetails(req, res));
-  
+
   // User Controller
   router.post('/login', (req, res) => UserController.userLogin(req, res));
   router.post('/register', (req, res) => UserController.userRegister(req, res));
