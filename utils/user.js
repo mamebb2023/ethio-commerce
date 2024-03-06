@@ -7,7 +7,7 @@ import dbClient from './db';
 class userUtils {
   static async createToken(userId) {
     const token = v4();
-    const key =  `auth_${token}`;
+    const key = `auth_${token}`;
     const expirationHour = 24;
 
     await redisClient.set(key, userId.toString(), expirationHour * 3600);
@@ -40,7 +40,7 @@ class userUtils {
   }
 
   static isAdmin(req, res, next) {
-    const user = req.user.user;
+    const { user } = req.user;
     if (!user) return res.status(401).send({ error: 'Unauthorized' });
 
     const admins = ['admin@admin.com'];
