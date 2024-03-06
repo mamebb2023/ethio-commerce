@@ -198,10 +198,20 @@ class ItemController {
   }
 
   /**
-   * A function to get the cart items
-   * @param {*} req Request form user
-   * @param {*} res Response sent to user
-   * @returns A response with status code and the cart items
+   * A function to retrieve the user's cart items along with their quantities.
+   *
+   * This function fetches the user's shopping cart from the database,
+   * excluding the "userId" field to potentially protect user privacy or
+   * prevent unnecessary information leakage.
+   * 
+   * It then iterates through the cart items:
+   * - For each item ID in the cart, it retrieves the corresponding item details from the database, again excluding the "userId" field.
+   * - It creates an object for each item, combining the retrieved item details with the quantity information from the cart.
+   * - Finally, it sends an array containing these item objects as a response.
+   *
+   * @param {Object} req The HTTP request object containing the user information in the `user` property.
+   * @param {Object} res The HTTP response object.
+   * @returns {Promise<void>} (No direct return value, sends response using `res`.)
    */
   static async cartItems(req, res) {
     const userId = String(req.user.user._id);
@@ -232,11 +242,21 @@ class ItemController {
   }
 
   /**
-   * A function to display an item details from the items database
-   * @param {*} req Request form user
-   * @param {*} res Response sent to user
-   * @returns A response with status code and the item details
-   */
+ * A function to retrieve details of an item from the database based on its ID.
+ *
+ * This function fetches an item's details from the "itemsCollection"
+ * based on the provided ID in the request query parameter. It:
+ *   - Validates the ID format using `userUtils.isValidId`.
+ *   - Retrieves the item details using `fileUtils.getItem` and
+ *      excludes the "userId" field to potentially protect user privacy or
+ *      prevent unnecessary information leakage.
+ *   - Sends a response with the item details or an error message
+ *      if the item is not found or the ID is invalid.
+ * 
+ * @param {Object} req The HTTP request object containing the item ID in the query string parameter.
+ * @param {Object} res The HTTP response object.
+ * @returns {Promise<void>} (No direct return value, sends response using `res`.)
+ */
   static async itemDetails(req, res) {
     const { itemId } = req.query;
     console.log(req.body, req.query);
