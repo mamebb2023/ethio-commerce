@@ -1,7 +1,8 @@
 @charset "UTF-8";
-/* @import url('https://fonts.googleapis.com/css2?family=Anta&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
 
 :root {
+    font-family: 'Anta';
     --dark-color: hsl(123, 100%, 10%);
     --light-color: hsl(123, 100%, 95%);
 }
