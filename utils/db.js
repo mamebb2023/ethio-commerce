@@ -1,8 +1,8 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient } from "mongodb";
 
-const DB_HOST = process.env.DB_HOST || 'localhost';
+const DB_HOST = process.env.DB_HOST || "localhost";
 const DB_PORT = process.env.DB_PORT || 27017;
-const DB_DATABASE = process.env.DB_DATABASE || 'ethio-commerce';
+const DB_DATABASE = process.env.DB_DATABASE || "ethio-commerce";
 const url = `mongodb://${DB_HOST}:${DB_PORT}/`;
 const options = {
   useUnifiedTopology: true,
@@ -17,9 +17,9 @@ class DBClient {
       }
 
       this.db = client.db(DB_DATABASE);
-      this.userCollection = this.db.collection('users');
-      this.itemsCollection = this.db.collection('items');
-      this.cartCollection = this.db.collection('cart');
+      this.userCollection = this.db.collection("users");
+      this.itemsCollection = this.db.collection("items");
+      this.cartCollection = this.db.collection("cart");
     });
   }
 
@@ -28,15 +28,15 @@ class DBClient {
   }
 
   async nbUsers() {
-    return this.db.collection('users').countDocuments();
+    return this.db.collection("users").countDocuments();
   }
 
   async nbItems() {
-    return this.db.collection('items').countDocuments();
+    return this.db.collection("items").countDocuments();
   }
 
   async nbCart() {
-    return this.db.collection('cart').countDocuments();
+    return this.db.collection("cart").countDocuments();
   }
 }
 

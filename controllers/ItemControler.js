@@ -1,9 +1,9 @@
-import { ObjectId } from 'mongodb';
+import { ObjectId } from "mongodb";
 
-import userUtils from '../utils/user';
-import fileUtils, { addToCart } from '../utils/files';
+import userUtils from "../utils/user";
+import fileUtils, { addToCart } from "../utils/files";
 
-import dbClient from '../utils/db';
+import dbClient from "../utils/db";
 
 /**
  * Item controller
@@ -23,10 +23,11 @@ class ItemController {
    * excluding the "userId" field.
    */
   static async getItems(req, res) {
-    return res.send(await dbClient.itemsCollection.find(
-      {},
-      { projection: { userId: false } },
-    ).toArray());
+    return res.send(
+      await dbClient.itemsCollection
+        .find({}, { projection: { userId: false } })
+        .toArray()
+    );
   }
 
   /**
@@ -42,18 +43,17 @@ class ItemController {
    * @returns {Promise<void>} (No direct return value, sends response using `res`.)
    */
   static async postItem(req, res) {
-    const {
-      itemName, itemPrice, miniDetail, itemDetails,
-    } = req.body;
+    const { itemName, itemPrice, miniDetail, itemDetails } = req.body;
     const itemImage = req.file;
     const { user } = req;
-    console.log('\n', 'itemImage', req.file);
+    console.log("\n", "itemImage", req.file);
     if (!itemName || !itemPrice || !miniDetail || !itemDetails || !user) {
-      return res.status(500).send({ error: 'Some info missing' });
+      return res.status(500).send({ error: "Some info missing" });
     }
 
     const userId = user.user._id.toString();
-    if (!userUtils.isValidId(userId)) return res.status(400).send({ error: 'Unauthorized' });
+    if (!userUtils.isValidId(userId))
+      return res.status(400).send({ error: "Unauthorized" });
 
     await dbClient.itemsCollection.insertOne({
       userId,
@@ -64,7 +64,7 @@ class ItemController {
       itemImagePath: `${itemImage.destination}${itemImage.filename}`,
     });
 
-    return res.status(201).send({ msg: 'Item Posted' });
+    return res.status(201).send({ msg: "Item Posted" });
   }
 
   /**
@@ -88,20 +88,23 @@ class ItemController {
     try {
       // Validate and handle missing itemId
       const { itemId } = req.body;
-      if (!itemId) return res.status(400).send({ error: 'Bad Request' });
+      if (!itemId) return res.status(400).send({ error: "Bad Request" });
 
       const itemObjId = ObjectId(itemId);
       const item = await fileUtils.getItem({ _id: itemObjId });
-      if (!item) return res.status(400).send({ error: 'Bad Request' });
+      if (!item) return res.status(400).send({ error: "Bad Request" });
 
       // Get user and handle unauthorized access
       const { email } = req.user.user;
-      const user = await userUtils.getUser({ email }, { projection: { password: false } });
-      if (!user) return res.status(401).send({ error: 'Unauthorized' });
+      const user = await userUtils.getUser(
+        { email },
+        { projection: { password: false } }
+      );
+      if (!user) return res.status(401).send({ error: "Unauthorized" });
 
       const userId = user._id.toString();
-      console.log('addToCart', userId, itemId);
-      if (!await dbClient.cartCollection.findOne({ userId })) {
+      console.log("addToCart", userId, itemId);
+      if (!(await dbClient.cartCollection.findOne({ userId }))) {
         await dbClient.cartCollection.insertOne({ userId });
       }
 
@@ -109,7 +112,7 @@ class ItemController {
 
       const userCart = await fileUtils.getUserCart(
         { userId },
-        { projection: { _id: false, userId: false } },
+        { projection: { _id: false, userId: false } }
       );
 
       const values = Object.values(userCart).map(Number);
@@ -117,8 +120,8 @@ class ItemController {
 
       return res.status(200).send({ total: quantitySum });
     } catch (error) {
-      console.error('Error adding item to cart:', error);
-      return res.status(500).send({ error: 'Internal server error' });
+      console.error("Error adding item to cart:", error);
+      return res.status(500).send({ error: "Internal server error" });
     }
   }
 
@@ -144,26 +147,36 @@ class ItemController {
     delete req.user.user.key;
     const { itemId } = req.body;
     const userId = String(req.user.user._id);
-    if (!userUtils.isValidId(itemId)) return res.status(400).send({ error: 'Bad request' });
+    if (!userUtils.isValidId(itemId))
+      return res.status(400).send({ error: "Bad request" });
 
     const itemObjId = ObjectId(itemId);
-    const item = await fileUtils.getItem({ _id: itemObjId }, { projection: { userId: false } });
-    if (!item) return res.status(400).send({ error: 'Bad Requset' });
+    const item = await fileUtils.getItem(
+      { _id: itemObjId },
+      { projection: { userId: false } }
+    );
+    if (!item) return res.status(400).send({ error: "Bad Requset" });
 
     const userCart = await dbClient.cartCollection.findOne(
       { userId },
-      { projection: { _id: false, userId: false } },
+      { projection: { _id: false, userId: false } }
     );
 
     if (userCart[itemId] === 1) {
       console.log(userId);
-      await dbClient.cartCollection.updateOne({ userId }, { $unset: { [itemId]: 1 } });
+      await dbClient.cartCollection.updateOne(
+        { userId },
+        { $unset: { [itemId]: 1 } }
+      );
     } else {
-      console.log('h2');
-      await dbClient.cartCollection.updateOne({ userId }, { $inc: { [itemId]: -1 } });
+      console.log("h2");
+      await dbClient.cartCollection.updateOne(
+        { userId },
+        { $inc: { [itemId]: -1 } }
+      );
     }
 
-    return res.send({ msg: 'success' });
+    return res.send({ msg: "success" });
   }
 
   /**
@@ -187,7 +200,7 @@ class ItemController {
 
     const userCart = await fileUtils.getUserCart(
       { userId },
-      { projection: { _id: false, userId: false } },
+      { projection: { _id: false, userId: false } }
     );
     if (!userCart) return;
 
@@ -203,7 +216,7 @@ class ItemController {
    * This function fetches the user's shopping cart from the database,
    * excluding the "userId" field to potentially protect user privacy or
    * prevent unnecessary information leakage.
-   * 
+   *
    * It then iterates through the cart items:
    * - For each item ID in the cart, it retrieves the corresponding item details from the database, again excluding the "userId" field.
    * - It creates an object for each item, combining the retrieved item details with the quantity information from the cart.
@@ -217,9 +230,9 @@ class ItemController {
     const userId = String(req.user.user._id);
     const userCart = await fileUtils.getUserCart(
       { userId },
-      { projection: { _id: false, userId: false } },
+      { projection: { _id: false, userId: false } }
     );
-    if (!userCart) return res.send({ msg: 'No items in cart' });
+    if (!userCart) return res.send({ msg: "No items in cart" });
     console.log(userCart);
 
     const keys = Object.keys(userCart);
@@ -229,7 +242,7 @@ class ItemController {
     for (const itemId of keys) {
       const item = await fileUtils.getItem(
         { _id: ObjectId(itemId) },
-        { projection: { userId: false } },
+        { projection: { userId: false } }
       );
       userCartItems.push(item); // Add the entire item object to the array
     }
@@ -242,34 +255,35 @@ class ItemController {
   }
 
   /**
- * A function to retrieve details of an item from the database based on its ID.
- *
- * This function fetches an item's details from the "itemsCollection"
- * based on the provided ID in the request query parameter. It:
- *   - Validates the ID format using `userUtils.isValidId`.
- *   - Retrieves the item details using `fileUtils.getItem` and
- *      excludes the "userId" field to potentially protect user privacy or
- *      prevent unnecessary information leakage.
- *   - Sends a response with the item details or an error message
- *      if the item is not found or the ID is invalid.
- * 
- * @param {Object} req The HTTP request object containing the item ID in the query string parameter.
- * @param {Object} res The HTTP response object.
- * @returns {Promise<void>} (No direct return value, sends response using `res`.)
- */
+   * A function to retrieve details of an item from the database based on its ID.
+   *
+   * This function fetches an item's details from the "itemsCollection"
+   * based on the provided ID in the request query parameter. It:
+   *   - Validates the ID format using `userUtils.isValidId`.
+   *   - Retrieves the item details using `fileUtils.getItem` and
+   *      excludes the "userId" field to potentially protect user privacy or
+   *      prevent unnecessary information leakage.
+   *   - Sends a response with the item details or an error message
+   *      if the item is not found or the ID is invalid.
+   *
+   * @param {Object} req The HTTP request object containing the item ID in the query string parameter.
+   * @param {Object} res The HTTP response object.
+   * @returns {Promise<void>} (No direct return value, sends response using `res`.)
+   */
   static async itemDetails(req, res) {
     const { itemId } = req.query;
     console.log(req.body, req.query);
 
-    if (!userUtils.isValidId(itemId)) return res.status(200).send({ error: 'Invalid item id' });
+    if (!userUtils.isValidId(itemId))
+      return res.status(200).send({ error: "Invalid item id" });
     console.log(itemId);
 
     const itemObjId = ObjectId(itemId);
     const item = await fileUtils.getItem(
       { _id: itemObjId },
-      { projection: { _id: false, userId: false } },
+      { projection: { _id: false, userId: false } }
     );
-    if (!item) return res.status(400).send({ error: 'Bad Request' });
+    if (!item) return res.status(400).send({ error: "Bad Request" });
 
     return res.status(200).send({ item });
   }

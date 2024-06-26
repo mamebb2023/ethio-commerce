@@ -1,8 +1,8 @@
-import { ObjectId } from 'mongodb';
-import { v4 } from 'uuid';
+import { ObjectId } from "mongodb";
+import { v4 } from "uuid";
 
-import redisClient from './redis';
-import dbClient from './db';
+import redisClient from "./redis";
+import dbClient from "./db";
 
 class userUtils {
   static async createToken(userId) {
@@ -16,7 +16,7 @@ class userUtils {
   }
 
   static async getUserIdAndKey(req) {
-    const xToken = req.header('X-Token');
+    const xToken = req.header("X-Token");
     if (!xToken) return {};
 
     const userKey = `auth_${xToken}`;
@@ -41,14 +41,14 @@ class userUtils {
 
   static isAdmin(req, res, next) {
     const { user } = req.user;
-    if (!user) return res.status(401).send({ error: 'Unauthorized' });
+    if (!user) return res.status(401).send({ error: "Unauthorized" });
 
-    const admins = ['admin@admin.com'];
+    const admins = ["admin@admin.com"];
     if (admins.includes(user.email)) {
-      console.log('isAdmin', req.user);
+      console.log("isAdmin", req.user);
       next();
     } else {
-      return res.status(401).send({ error: 'Unauthorized' });
+      return res.status(401).send({ error: "Unauthorized" });
     }
   }
 }
