@@ -1,9 +1,9 @@
 // import bcrypt from 'bcrypt';
 import sha1 from "sha1";
 
-import dbClient from "../utils/db";
-import userUtils from "../utils/user";
-import redisClient from "../utils/redis";
+import dbClient from "../utils/db.js";
+import userUtils from "../utils/user.js";
+import redisClient from "../utils/redis.js";
 
 /**
  * User Controller
@@ -42,12 +42,10 @@ class UserController {
         email,
         password: hashPassword,
       });
-      return res
-        .status(201)
-        .send({
-          msg: "User Registered! You Can now login.",
-          redirectUrl: "/login",
-        });
+      return res.status(201).send({
+        msg: "User Registered! You Can now login.",
+        redirectUrl: "/login",
+      });
     } catch (err) {
       console.log(err);
       return res.status(500).send({ error: "Internal Server Error" });

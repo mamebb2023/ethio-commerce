@@ -1,7 +1,7 @@
-import Bull from 'bull';
-import dbClient from './db';
+import Bull from "bull";
+import dbClient from "./db.js";
 
-const queue = new Bull('addToCartQueue');
+const queue = new Bull("addToCartQueue");
 
 class fileUtils {
   static async getItem(...query) {
@@ -23,26 +23,32 @@ async function processAddToCart(job) {
 
     if (existingItem) {
       // Update quantity if the item already exists
-      await dbClient.cartCollection.updateOne({ userId }, { $inc: { [itemId]: 1 } });
+      await dbClient.cartCollection.updateOne(
+        { userId },
+        { $inc: { [itemId]: 1 } }
+      );
     } else {
       // Insert the item with quantity 1 if it doesn't exist
-      await dbClient.cartCollection.updateOne({ userId }, { $set: { [itemId]: 1 } });
+      await dbClient.cartCollection.updateOne(
+        { userId },
+        { $set: { [itemId]: 1 } }
+      );
     }
   } catch (error) {
-    console.error('Error adding item to cart:', error);
+    console.error("Error adding item to cart:", error);
   }
 }
 
 export async function addToCart(userId, itemId) {
   try {
     if (!itemId) {
-      return { error: 'Bad Request: Missing itemId' };
+      return { error: "Bad Request: Missing itemId" };
     }
     await queue.add({ userId, itemId });
-    return { msg: 'Item added to cart processing queue.' };
+    return { msg: "Item added to cart processing queue." };
   } catch (error) {
-    console.error('Error adding item to queue:', error);
-    return { error: 'Internal Server Error' };
+    console.error("Error adding item to queue:", error);
+    return { error: "Internal Server Error" };
   }
 }
 

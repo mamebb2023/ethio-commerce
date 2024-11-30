@@ -1,5 +1,5 @@
-import redisClient from '../utils/redis';
-import dbClient from '../utils/db';
+import redisClient from "../utils/redis.js";
+import dbClient from "../utils/db.js";
 
 /**
  * App Controller
@@ -22,10 +22,9 @@ class AppController {
       db: await dbClient.isAlive(),
       nbUsers: await dbClient.nbUsers(),
       nbItems: await dbClient.nbItems(),
-      users: await dbClient.userCollection.find(
-        {},
-        { projection: { password: false } },
-      ).toArray(),
+      users: await dbClient.userCollection
+        .find({}, { projection: { password: false } })
+        .toArray(),
     };
 
     return res.status(200).send({ status });

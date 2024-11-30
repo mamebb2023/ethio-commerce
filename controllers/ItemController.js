@@ -1,9 +1,9 @@
-import { ObjectId } from "mongodb";
+import pkg from "mongodb";
+const { ObjectId } = pkg;
+import userUtils from "../utils/user.js";
+import fileUtils, { addToCart } from "../utils/files.js";
 
-import userUtils from "../utils/user";
-import fileUtils, { addToCart } from "../utils/files";
-
-import dbClient from "../utils/db";
+import dbClient from "../utils/db.js";
 
 /**
  * Item controller
